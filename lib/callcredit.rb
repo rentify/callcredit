@@ -1,5 +1,14 @@
 require "callcredit/version"
+require "config_env"
+require "person"
+require "address"
 
-module Callcredit
-  # Your code goes here...
+class CallCredit
+  attr_accessor :person, :address
+
+  def initialize(*opt)
+    @person = Person.new
+    @address = Address.new
+  end
+
 end
