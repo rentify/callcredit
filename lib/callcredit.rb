@@ -17,7 +17,9 @@ class CallCredit
   end
 
   def search
-    {}
+    payload = XMLmaker.person(self)
+    response = @client.call(:search07a, xml: payload)
+    response.body
   end
 
   private
