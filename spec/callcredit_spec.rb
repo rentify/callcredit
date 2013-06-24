@@ -23,6 +23,12 @@ describe CallCredit do
     end
   end
 
+  describe "configuration" do
+    it "should have configuration options" do
+      cc.conf.should be_kind_of ConfigEnv
+    end
+  end
+
   describe "#search" do
     it "should be defined" do
       cc.should respond_to :search
