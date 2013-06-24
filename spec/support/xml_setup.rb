@@ -13,6 +13,10 @@ def xml_result
         <soap:SearchDefinition>
           <soap:creditrequest schemaversion="7.0" datasets="255">
             <soap:applicant/>
+            <soap:score>1</soap:score>
+            <soap:purpose>TV</soap:purpose>
+            <soap:autosearch>1</soap:autosearch>
+            <soap:autosearchmaximum>3</soap:autosearchmaximum>
           </soap:creditrequest>
         </soap:SearchDefinition>
       </soap:Search07a>

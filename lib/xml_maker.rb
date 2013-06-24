@@ -7,10 +7,16 @@ class XMLmaker
     template = Nokogiri::XML((fix_root_node(builder)), &:noblanks)
 
     body = '//soapenv:Envelope/soapenv:Body'
+    request = '/soap:Search07a/soap:SearchDefinition/soap:creditrequest'
 
     template.xpath(body).each do |node|
       node.add_child search_node
     end
+
+    template.xpath("#{body}#{request}").each do |node|
+      node.add_child purpose
+    end
+
     template.root.to_xml
   end
 
@@ -56,5 +62,18 @@ class XMLmaker
     search.doc.root.children.to_xml
   end
 
+
+  def self.purpose
+    ns = {"xmlns:soap" => "definition"}
+    purp = Nokogiri::XML::Builder.new do |xml|
+      xml.root(ns) do
+        xml["soap"].score 1
+        xml["soap"].purpose "TV"
+        xml["soap"].autosearch 1
+        xml["soap"].autosearchmaximum 3
+      end
+    end
+    purp.doc.root.children.to_xml
+  end
 
 end
