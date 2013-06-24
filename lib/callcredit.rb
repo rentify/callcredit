@@ -11,4 +11,6 @@ class CallCredit
     @address = Address.new
   end
 
+  def search
+  end
 end
