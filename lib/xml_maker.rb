@@ -8,6 +8,7 @@ class XMLmaker
 
     body = '//soapenv:Envelope/soapenv:Body'
     request = '/soap:Search07a/soap:SearchDefinition/soap:creditrequest'
+    applicant = '/soap:applicant'
 
     template.xpath(body).each do |node|
       node.add_child search_node
@@ -15,6 +16,11 @@ class XMLmaker
 
     template.xpath("#{body}#{request}").each do |node|
       node.add_child purpose
+    end
+
+    template.xpath("#{body}#{request}#{applicant}").each do |node|
+      node.add_child address(10, "X9 9LF")
+      node.add_child tenant("Julia", "Audi", "1910-01-01")
     end
 
     template.root.to_xml
@@ -74,6 +80,39 @@ class XMLmaker
       end
     end
     purp.doc.root.children.to_xml
+  end
+
+  def self.address(number, postcode)
+    ns = {"xmlns:soap" => "definition"}
+    address = Nokogiri::XML::Builder.new do |xml|
+      xml.root(ns) do
+        xml["soap"].address do
+          xml["soap"].buildingno number
+          xml["soap"].postcode postcode
+        end
+      end
+    end
+    address.doc.root.children.to_xml
+  end
+
+
+  def self.tenant(forename, surname, dob)
+    ns = {"xmlns:soap" => "definition"}
+    tenant = Nokogiri::XML::Builder.new do |xml|
+      xml.root(ns) do
+        xml["soap"].name do
+          xml["soap"].forename forename
+          xml["soap"].surname surname
+        end
+        xml["soap"].dob dob
+        xml["soap"].hho 0
+        xml["soap"].tpoptout 1
+        xml["soap"].applicantdemographics do
+          xml["soap"].employment
+        end
+      end
+    end
+    tenant.doc.root.children.to_xml
   end
 
 end

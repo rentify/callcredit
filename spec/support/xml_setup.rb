@@ -12,7 +12,22 @@ def xml_result
       <soap:Search07a>
         <soap:SearchDefinition>
           <soap:creditrequest schemaversion="7.0" datasets="255">
-            <soap:applicant/>
+            <soap:applicant>
+              <soap:address>
+                <soap:buildingno>10</soap:buildingno>
+                <soap:postcode>X9 9LF</soap:postcode>
+              </soap:address>
+              <soap:name>
+                <soap:forename>Julia</soap:forename>
+                <soap:surname>Audi</soap:surname>
+              </soap:name>
+              <soap:dob>1910-01-01</soap:dob>
+              <soap:hho>0</soap:hho>
+              <soap:tpoptout>1</soap:tpoptout>
+              <soap:applicantdemographics>
+                <soap:employment/>
+              </soap:applicantdemographics>
+            </soap:applicant>
             <soap:score>1</soap:score>
             <soap:purpose>TV</soap:purpose>
             <soap:autosearch>1</soap:autosearch>
