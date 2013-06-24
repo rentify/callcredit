@@ -1,8 +1,8 @@
 require "callcredit/version"
-require "config_env"
-require "person"
-require "address"
-require "xml_maker"
+require "callcredit/config_env"
+require "callcredit/person"
+require "callcredit/address"
+require "callcredit/xml_maker"
 require "savon"
 
 class CallCredit
@@ -11,7 +11,7 @@ class CallCredit
   def initialize(*opt)
     @conf = choose_env(opt)
     wsdl_file = @conf.env["wsdl"]
-    @client = Savon.client { wsdl wsdl_file }
+    @client = Savon.client { wsdl wsdl_file; log false }
     @person = Person.new
     @address = Address.new
   end
