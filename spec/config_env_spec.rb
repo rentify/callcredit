@@ -24,7 +24,7 @@ describe ConfigEnv do
 
     it "should return default enviroment settings" do
       YAML.stub(:load_file).and_return config
-      ce.env.should eq config[:test]
+      ce.env.should eq config[:test.to_s]
     end
   end
 
@@ -37,7 +37,7 @@ describe ConfigEnv do
 
     it "should return corresponding settings" do
       YAML.stub(:load_file).and_return config
-      ce.env.should eq config[:production]
+      ce.env.should eq config[:production.to_s]
     end
   end
 end

@@ -9,6 +9,6 @@ class ConfigEnv
   end
 
   def env
-    @settings[@opt]
+    @settings[@opt.to_s]
   end
 end
