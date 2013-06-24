@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 describe Person do
-  let(:person) { per = Person.new({:forename => "Julia", :surname => "Audi", :dob => "1943-03-06", :beast => "angry"}) }
+  let(:person) do
+    Person.new(forename: "Julia",
+               surname: "Audi",
+               dob: "1943-03-06",
+               beast: "angry")
+  end
 
   it "should create instance variables based on parameters" do
     person.instance_variables.should include :@forename, :@surname, :@dob, :@beast
