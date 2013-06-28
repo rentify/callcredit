@@ -18,9 +18,16 @@ class XMLmaker
       node.add_child purpose
     end
 
-    template.xpath("#{body}#{request}#{applicant}").each do |node|
-      node.add_child address(10, "X9 9LF")
-      node.add_child tenant("Julia", "Audi", "1910-01-01")
+    data.addresses.each do |ad|
+      template.xpath("#{body}#{request}#{applicant}").each do |node|
+        node.add_child address(ad[:number], ad[:postcode])
+      end
+    end
+
+    data.people.each do |person|
+      template.xpath("#{body}#{request}#{applicant}").each do |node|
+        node.add_child tenant(person[:forename], person[:surname], person[:dob])
+      end
     end
 
     template.root.to_xml
