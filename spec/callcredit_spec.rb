@@ -61,13 +61,57 @@ describe CallCredit do
         expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error StandardError
       end
     end
-
   end
 
-  describe "#person" do
+  pending "#person" do
     it "should derive from Person" do
       cc.person.should be_kind_of Person
     end
+  end
+
+  describe "#people" do
+    let(:cc) { CallCredit.new }
+
+    specify { cc.people.should be_kind_of Array }
+  end
+
+  describe "#add_person" do
+    it "should have the method defined" do
+      cc.should respond_to :add_person
+    end
+
+    context "when a person is added" do
+      before { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+
+      it "should return an Array with the person" do
+        cc.people.should eq [{ forename: "Julia", surname: "Audi", dob: "1943-03-06" }]
+      end
+    end
+
+    context "when more than 2 people are added" do
+      before do
+        cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06")
+        cc.add_person(forename: "Romeo", surname: "Audi", dob: "1941-03-06")
+      end
+
+      let(:all_addresses) do
+        [{ forename: "Julia", surname: "Audi", dob: "1943-03-06" },
+         { forename: "Romeo", surname: "Audi", dob: "1941-03-06" }]
+      end
+
+      it "should throw an error" do
+        expect {
+          cc.add_person(forename: "Sven", surname: "Flip", dob: "1943-03-06")
+        }.to raise_error StandardError
+      end
+    end
+
+    context "when a non valid attribute is added" do
+      it "should return an error" do
+        expect { cc.add_person(made_up: "irrelevant value") }.to raise_error StandardError
+      end
+    end
+
   end
 
   describe "configuration" do

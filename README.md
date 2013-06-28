@@ -32,7 +32,7 @@ settings.
 To perform a search, you'd provide the following information on a
 person:
 
-    cc.person(forename: "Julia", surname: "Audi", dob: "1943-03-06")
+    cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06")
     cc.add_address(number: 1, postcode: "X9 9LF")
     cc.search
 
@@ -41,7 +41,7 @@ which will return the results available in the Call Credit database.
 If you wanted to perform a search on multiple addresses you'd add them
 like so:
 
-    cc.person(forename: "Julia", surname: "Audi", dob: "1943-03-06")
+    cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06")
     cc.add_address(number: 1, postcode: "X9 9LF")
     cc.add_address(number: 44, postcode: "V2 2BT")
     cc.search

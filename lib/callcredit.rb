@@ -7,9 +7,10 @@ require "savon"
 
 class CallCredit
   attr_accessor :person, :address, :client, :conf
-  attr_reader :addresses
+  attr_reader :addresses, :people
 
   MAX_ADDRESSES = 10
+  MAX_PEOPLE = 2
 
   def initialize(*opt)
     @conf = choose_env(opt)
@@ -18,6 +19,7 @@ class CallCredit
     @person = Person.new
     @address = Address.new
     @addresses = []
+    @people = []
   end
 
   def search
@@ -33,12 +35,33 @@ class CallCredit
     @addresses.flatten!
   end
 
+  def add_person(*args)
+    validate_person_count
+    validate_people_params(args)
+    @people << args
+    @people.flatten!
+  end
+
   private
   def choose_env(opt)
     if opt.length == 1
       ConfigEnv.new :production if opt.first.has_key? :production
     else
       ConfigEnv.new
+    end
+  end
+
+  def validate_person_count
+    raise StandardError, "too many people" if @people.size == MAX_PEOPLE
+  end
+
+  def validate_people_params(*args)
+    valid_attribs = [:forename, :surname, :dob, :title]
+
+    args.flatten.each do |arg|
+      arg.each do |k,v|
+        raise StandardError, "invalid attribute #{k} for person" unless valid_attribs.include? k
+      end
     end
   end
 
