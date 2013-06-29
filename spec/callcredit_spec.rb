@@ -50,7 +50,7 @@ describe CallCredit do
 
     context "when a non valid attribute is added" do
       it "should return an error" do
-        expect { cc.add_address(ninja: 7) }.to raise_error StandardError
+        expect { cc.add_address(ninja: 7) }.to raise_error AddressError
       end
     end
 
@@ -58,7 +58,7 @@ describe CallCredit do
       before { 10.times { cc.add_address(number: 7, postcode: "QP") } }
 
       it "should fail" do
-        expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error StandardError
+        expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error AddressError
       end
     end
   end

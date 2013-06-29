@@ -2,6 +2,7 @@ require "callcredit/version"
 require "callcredit/config_env"
 require "callcredit/person"
 require "callcredit/address"
+require "callcredit/errors"
 require "callcredit/xml_maker"
 require "savon"
 
@@ -66,7 +67,7 @@ class CallCredit
   end
 
   def validate_address_count
-    raise StandardError, "too many addresses" if @addresses.size == MAX_ADDRESSES
+    raise AddressError, "too many addresses" if @addresses.size == MAX_ADDRESSES
   end
 
   def validate_address_params(*args)
@@ -74,7 +75,7 @@ class CallCredit
 
     args.flatten.each do |arg|
       arg.each do |k,v|
-        raise StandardError, "invalid attribute #{k} for address" unless valid_attribs.include? k
+        raise AddressError, "invalid attribute #{k} for address" unless valid_attribs.include? k
       end
     end
   end
