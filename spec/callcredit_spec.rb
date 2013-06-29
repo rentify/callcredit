@@ -127,13 +127,13 @@ describe CallCredit do
 
     context "when a query is submitted" do
       let!(:cc) { CallCredit.new }
-      let(:person) { cc.person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
-      let(:address) { cc.address(number: 7, postcode: "W1") }
+      let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+      let!(:address) { cc.add_address(number: 7, postcode: "W1") }
 
       subject { cc.search }
 
       it "should return the results" do
-        cc.search.should be_kind_of Hash
+        subject.should be_kind_of Hash
       end
     end
   end
