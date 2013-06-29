@@ -5,8 +5,7 @@ require "callcredit/xml_maker"
 require "savon"
 
 class CallCredit
-  attr_accessor :client, :conf
-  attr_reader :addresses, :people
+  attr_reader :addresses, :people, :conf, :client
 
   MAX_ADDRESSES = 10
   MAX_PEOPLE = 2
