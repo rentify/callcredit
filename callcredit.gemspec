@@ -1,11 +1,10 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'callcredit/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "callcredit"
-  spec.version       = Callcredit::VERSION
+  spec.version       = '0.3.0'
   spec.authors       = ["Aleksandar Simic"]
   spec.email         = ["aleks@rentify.com"]
   spec.description   = %q{Call Credit API client gem}
