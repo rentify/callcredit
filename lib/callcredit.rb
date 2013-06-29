@@ -1,13 +1,11 @@
 require "callcredit/version"
 require "callcredit/config_env"
-require "callcredit/person"
-require "callcredit/address"
 require "callcredit/errors"
 require "callcredit/xml_maker"
 require "savon"
 
 class CallCredit
-  attr_accessor :person, :address, :client, :conf
+  attr_accessor :client, :conf
   attr_reader :addresses, :people
 
   MAX_ADDRESSES = 10
@@ -17,8 +15,6 @@ class CallCredit
     @conf = choose_env(opt)
     wsdl_file = @conf.env["wsdl"]
     @client = Savon.client { wsdl wsdl_file; log false }
-    @person = Person.new
-    @address = Address.new
     @addresses = []
     @people = []
   end

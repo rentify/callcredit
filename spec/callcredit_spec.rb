@@ -10,13 +10,6 @@ describe CallCredit do
     end
   end
 
-  pending "#address" do
-    let(:address) { cc.address(number: 2, postcode: "XY") }
-    it "should derive from Address" do
-      cc.address.should be_kind_of Address
-    end
-  end
-
   describe "#add_address" do
     it "should have the method" do
       cc.should respond_to :add_address
@@ -60,12 +53,6 @@ describe CallCredit do
       it "should fail" do
         expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error AddressError
       end
-    end
-  end
-
-  pending "#person" do
-    it "should derive from Person" do
-      cc.person.should be_kind_of Person
     end
   end
 
