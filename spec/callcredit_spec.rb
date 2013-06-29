@@ -102,13 +102,13 @@ describe CallCredit do
       it "should throw an error" do
         expect {
           cc.add_person(forename: "Sven", surname: "Flip", dob: "1943-03-06")
-        }.to raise_error StandardError
+        }.to raise_error PersonError
       end
     end
 
     context "when a non valid attribute is added" do
       it "should return an error" do
-        expect { cc.add_person(made_up: "irrelevant value") }.to raise_error StandardError
+        expect { cc.add_person(made_up: "irrelevant value") }.to raise_error PersonError
       end
     end
 

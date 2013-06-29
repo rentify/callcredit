@@ -53,7 +53,7 @@ class CallCredit
   end
 
   def validate_person_count
-    raise StandardError, "too many people" if @people.size == MAX_PEOPLE
+    raise PersonError, "too many people" if @people.size == MAX_PEOPLE
   end
 
   def validate_people_params(*args)
@@ -61,7 +61,7 @@ class CallCredit
 
     args.flatten.each do |arg|
       arg.each do |k,v|
-        raise StandardError, "invalid attribute #{k} for person" unless valid_attribs.include? k
+        raise PersonError, "invalid attribute #{k} for person" unless valid_attribs.include? k
       end
     end
   end
