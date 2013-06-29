@@ -18,6 +18,14 @@ Or install it yourself as:
 
 ## Usage
 
+The configuration for the gem resides under the **config/config.yml**.
+Edit it with the appropriate values, build the gem, install & require
+it to use it:
+
+    require 'callcredit'
+
+and then
+
     cc = CallCredit.new
 
 or

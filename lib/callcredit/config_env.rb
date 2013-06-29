@@ -5,7 +5,8 @@ class ConfigEnv
 
   def initialize(*arg)
     @opt = arg.first || :test
-    @settings = YAML.load_file(File.join("config", "config.yml"))
+    path = File.join(File.dirname(__FILE__), "..", "..", "config", "config.yml")
+    @settings = YAML.load_file path
   end
 
   def env
