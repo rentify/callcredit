@@ -11,8 +11,12 @@ class CallCredit
 
   def initialize(*opt)
     @conf = choose_env(opt)
-    wsdl_file = @conf.env["wsdl"]
-    @client = Savon.client { wsdl wsdl_file; log false }
+
+    @client = Savon.client do |globals|
+      globals.wsdl @conf.env["wsdl"]
+      globals.log false
+    end
+
     @addresses = []
     @people = []
   end
