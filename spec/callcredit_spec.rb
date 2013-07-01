@@ -119,7 +119,7 @@ describe CallCredit do
 
       subject { cc.search }
 
-      it "should return the results" do
+      it "should return the results", :vcr do
         subject.should be_kind_of Hash
       end
     end

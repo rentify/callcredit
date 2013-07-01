@@ -4,10 +4,10 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "callcredit"
-  spec.version       = '0.3.0'
+  spec.version       = '0.3.1'
   spec.authors       = ["Aleksandar Simic"]
   spec.email         = ["aleks@rentify.com"]
-  spec.description   = %q{Call Credit API client gem}
+  spec.description   = %q{a hopefully sane consumer of Call Credit API}
   spec.summary       = %q{Call Credit API client gem}
   spec.homepage      = ""
   spec.license       = "MIT"
@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 2.13"
   spec.add_development_dependency "active_support", "3.0.0"
+  spec.add_development_dependency "webmock", "1.11.0" # 'older' version, so it plays nice with VCR
+  spec.add_development_dependency "vcr", "2.5.0"
 end

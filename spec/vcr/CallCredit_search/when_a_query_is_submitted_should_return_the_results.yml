@@ -1,0 +1,60 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ct.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
+    body:
+      encoding: US-ASCII
+      string: ! "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
+        xmlns:soap=\"urn:callcredit.co.uk/soap:callreport7\">\n  <soapenv:Header>\n
+        \   <soap:callcreditheaders>\n      <soap:company>Rentify CR CTEST</soap:company>\n
+        \     <soap:username>Rentify API CR CTEST</soap:username>\n      <soap:password>lequ1li8di</soap:password>\n
+        \   </soap:callcreditheaders>\n  </soapenv:Header>\n  <soapenv:Body>\n    <soap:Search07a>\n
+        \ <soap:SearchDefinition>\n    <soap:creditrequest schemaversion=\"7.0\" datasets=\"255\">\n
+        \     <soap:applicant><soap:address>\n  <soap:buildingno>7</soap:buildingno>\n
+        \ <soap:postcode>W1</soap:postcode>\n</soap:address><soap:name>\n  <soap:forename>Julia</soap:forename>\n
+        \ <soap:surname>Audi</soap:surname>\n</soap:name><soap:dob>1943-03-06</soap:dob><soap:hho>0</soap:hho><soap:tpoptout>1</soap:tpoptout><soap:applicantdemographics>\n
+        \ <soap:employment/>\n</soap:applicantdemographics></soap:applicant>\n    <soap:score>1</soap:score><soap:purpose>TV</soap:purpose><soap:autosearch>1</soap:autosearch><soap:autosearchmaximum>3</soap:autosearchmaximum></soap:creditrequest>\n
+        \ </soap:SearchDefinition>\n</soap:Search07a>\n  </soapenv:Body>\n</soapenv:Envelope>"
+    headers:
+      Soapaction:
+      - ! '"urn:callcredit.co.uk/soap:callreport7/Search07a"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1167'
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 01 Jul 2013 15:31:23 GMT
+      Cache-Control:
+      - private, max-age=0
+      Content-Type:
+      - text/xml; charset=utf-8
+      Connection:
+      - close
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><Search07aResponse
+        xmlns="urn:callcredit.co.uk/soap:callreport7"><SearchResult><jobdetails><searchid>{0D4DBFF9-4EB0-44DC-9604-6EC2033C98CD}</searchid><cast>02.02.7.1.4.1.41389.13971446.260236</cast><pstv>13971446</pstv><ls>41389</ls><searchdate>2013-07-01T16:31:17</searchdate></jobdetails><creditrequest
+        schemaversion="7.0" datasets="255"><applicant><address><buildingno>7</buildingno><postcode>W1</postcode></address><name><forename>Julia</forename><surname>Audi</surname></name><dob>1943-03-06</dob><hho>0</hho><tpoptout>1</tpoptout><applicantdemographics><employment
+        /></applicantdemographics></applicant><score>1</score><purpose>TV</purpose><autosearch>1</autosearch><autosearchmaximum>3</autosearchmaximum></creditrequest><picklist
+        maxaddressitems="20" maxnameitems="9" picklist="1" regenerated="0"><applicant
+        id="1" reporttype="0"><address addressid="1"><addressinput><abodeno /><buildingno>7</buildingno><buildingname
+        /><street1 /><street2 /><sublocality /><locality /><posttown /><postcode>W1</postcode></addressinput><fullmatches
+        reporttype="0" /></address></applicant></picklist><creditreport searchid="{0D4DBFF9-4EB0-44DC-9604-6EC2033C98CD}"
+        linktype="0"><applicant reporttype="0" tpoptout="1" reporttitle="Address not
+        found"><creditscore><score class="2">9999</score><reasons><code>0</code><code>0</code><code>0</code><code>0</code></reasons></creditscore></applicant></creditreport></SearchResult></Search07aResponse></soap:Body></soap:Envelope>
+    http_version: 
+  recorded_at: Mon, 01 Jul 2013 15:31:23 GMT
+recorded_with: VCR 2.5.0
