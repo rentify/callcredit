@@ -23,6 +23,7 @@ class CallCredit
 
   def search
     raise NoPersonError, "no person added" if @people.length == 0
+    raise NoAddressError, "no address added" if @addresses.length == 0
     payload = XMLmaker.person(self)
     response = @client.call(:search07a, xml: payload)
     response.body

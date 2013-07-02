@@ -125,18 +125,20 @@ describe CallCredit do
     end
 
     context "when a person is added only" do
-      let!(:cc) { CallCredit.new }
+      let(:cc) { CallCredit.new }
 
       it "should raise an error" do
         expect { cc.search }.to raise_error NoPersonError
       end
     end
 
-    context "when an address is added only" do
-      it "should raise an error"
+    context "when no address is added" do
+      let!(:cc) { CallCredit.new }
+      let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+
+      it "should raise an error" do
+        expect { cc.search }.to raise_error NoAddressError
+      end
     end
-
-    context "when neither a person or an address are added"
-
   end
 end
