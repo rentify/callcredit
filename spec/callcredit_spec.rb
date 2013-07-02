@@ -123,5 +123,20 @@ describe CallCredit do
         subject.should be_kind_of Hash
       end
     end
+
+    context "when a person is added only" do
+      let!(:cc) { CallCredit.new }
+
+      it "should raise an error" do
+        expect { cc.search }.to raise_error NoPersonError
+      end
+    end
+
+    context "when an address is added only" do
+      it "should raise an error"
+    end
+
+    context "when neither a person or an address are added"
+
   end
 end
