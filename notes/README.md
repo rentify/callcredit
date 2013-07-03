@@ -13,3 +13,12 @@ me as much info as you have on the person I'm currently looking up.
 
 For more info on **datasets** consult section 8.4 in Call Credit's API
 guide.
+
+## Manual Password Change
+
+If for whatever reason you forget the password for the app, it can be
+changed here:
+
+[for test](https://ct.callcreditsecure.co.uk/Prove/ChangePassword/Step1.aspx?p=3)
+
+[for production](https://www.callcreditsecure.co.uk/Prove/ChangePassword/Step1.aspx?p=3)
