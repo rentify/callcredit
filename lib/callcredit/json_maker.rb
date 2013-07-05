@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 class JSONmaker
   def self.parse(hash)
@@ -17,7 +18,8 @@ class JSONmaker
     { forename: forename, surname: surname, dob: dob, addresses: addresses,
       financial_risk: get_financial_risk(financial_risk),
       income_type: get_income_type(income_type),
-      investor_category: get_investor(investor_category) }
+      investor_category: get_investor(investor_category),
+      property_value: get_property_value(property_value) }
   end
 
   private
@@ -137,5 +139,36 @@ class JSONmaker
       "XX" => "Communal Establishments In Mixed Neighbourhoods"
     }
     cameoinvestor[key]
+  end
+
+  def self.get_property_value key
+    cameoproperty = {
+      "1"  => "between £836,507 and upwards",
+      "2"  => "between £662,759 and £836,498",
+      "3"  => "between £576,154 and £662,757",
+      "4"  => "between £520,726 and £576,153",
+      "5"  => "between £480,618 and £520,725",
+      "6"  => "between £370,725 and £480,614",
+      "7"  => "between £315,381 and £370,724",
+      "8"  => "between £278,665 and £315,380",
+      "9"  => "between £251,913 and £278,664",
+      "10" => "between £230,245 and £251,912",
+      "11" => "between £211,808 and £230,244",
+      "12" => "between £195,684 and £211,807",
+      "13" => "between £181,216 and £195,683",
+      "14" => "between £168,175 and £181,215",
+      "15" => "between £156,139 and £168,174",
+      "16" => "between £144,881 and £156,138",
+      "17" => "between £134,086 and £144,880",
+      "18" => "between £123,668 and £134,085",
+      "19" => "between £113,490 and £123,667",
+      "20" => "between £103,569 and £113,489",
+      "21" => "between £93,635 and £113,568",
+      "22" => "between £83,256 and £93,634",
+      "23" => "between £71,236 and £83,255",
+      "24" => "between £0 and £71,235"
+    }
+
+    cameoproperty[key]
   end
 end

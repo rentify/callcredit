@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'spec_helper'
 
 describe JSONmaker do
@@ -14,7 +15,8 @@ describe JSONmaker do
           addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF"],
           financial_risk: "Highest Risk",
           income_type: "Poorer Terraced Communities",
-          investor_category: "Terrace Residents"
+          investor_category: "Terrace Residents",
+          property_value: "between £103,569 and £113,489"
         }
       end
 
