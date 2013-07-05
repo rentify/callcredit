@@ -16,7 +16,8 @@ class JSONmaker
 
     { forename: forename, surname: surname, dob: dob, addresses: addresses,
       financial_risk: get_financial_risk(financial_risk),
-      income_type: get_income_type(income_type) }
+      income_type: get_income_type(income_type),
+      investor_category: get_investor(investor_category) }
   end
 
   private
@@ -35,7 +36,6 @@ class JSONmaker
   end
 
   def self.get_income_type key
-    # Income type
     cameoincome = {
       "11" => "Opulent Families & Couples",
       "12" => "Professional Detached Homeowners",
@@ -88,6 +88,54 @@ class JSONmaker
       "XX" => "Communal Establishments In Mixed Neighbourhoods"
     }
     cameoincome[key]
-    # key
+  end
+
+  def self.get_investor key
+    cameoinvestor = {
+      "11" => "Older Semi-Detached Neighbourhoods",
+      "12" => "Wealthy Professional Households",
+      "13" => "Older & Retired Professionals",
+      "14" => "City Flat Dwellers",
+      "15" => "Terraced Homeowners",
+      "16" => "Young Professionals",
+      "21" => "Affluent Homeowners",
+      "22" => "Affluent Professionals",
+      "23" => "Retired Households",
+      "24" => "Urban Flat Dwellers",
+      "25" => "Young & Middle-Aged",
+      "26" => "Single Professionals",
+      "31" => "Comfortable Homeowners",
+      "32" => "Prosperous Mortgagees",
+      "33" => "Mature Educated Couples",
+      "34" => "Poorer Flat Dwellers",
+      "35" => "Comfortable Terrace Residents",
+      "36" => "Young Professional Tenants",
+      "41" => "Home Owning Families",
+      "42" => "Affluent Families & Couples",
+      "43" => "Retired Professionals",
+      "44" => "Young Council Tenants",
+      "45" => "Terrace Residents",
+      "46" => "Young & Educated",
+      "51" => "Less Affluent Homeowners",
+      "52" => "Managers & Professionals",
+      "53" => "Elderly Households",
+      "54" => "Council Tenants",
+      "55" => "Mature Terraced Neighbourhoods",
+      "56" => "Young Educated Singles",
+      "61" => "Lower Skilled Families",
+      "62" => "Well-Off Homeowners",
+      "63" => "Council Flat Retirees",
+      "64" => "Poorer Council Tenants",
+      "65" => "Poorer Terraced Households",
+      "66" => "Professional Single Tenants",
+      "71" => "Poorly Educated Families",
+      "72" => "Prosperous Mature Homeowners",
+      "73" => "Retired Council Tenants",
+      "74" => "Poorer Council Neighbourhoods",
+      "75" => "Lower Skilled Terrace Residents",
+      "76" => "Young Educated Neighbourhoods",
+      "XX" => "Communal Establishments In Mixed Neighbourhoods"
+    }
+    cameoinvestor[key]
   end
 end
