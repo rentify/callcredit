@@ -16,7 +16,8 @@ describe JSONmaker do
           financial_risk: "Highest Risk",
           income_type: "Poorer Terraced Communities",
           investor_category: "Terrace Residents",
-          property_value: "between £103,569 and £113,489"
+          property_value: "between £103,569 and £113,489",
+          area_makeup: "Mixed Households In Mostly Welsh Suburban Communities & Rural Areas"
         }
       end
 

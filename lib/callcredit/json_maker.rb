@@ -19,7 +19,8 @@ class JSONmaker
       financial_risk: get_financial_risk(financial_risk),
       income_type: get_income_type(income_type),
       investor_category: get_investor(investor_category),
-      property_value: get_property_value(property_value) }
+      property_value: get_property_value(property_value),
+      area_makeup: get_area_makeup(area_makeup) }
   end
 
   private
@@ -170,5 +171,70 @@ class JSONmaker
     }
 
     cameoproperty[key]
+  end
+
+  def self.get_area_makeup key
+    cameouk = {
+      "01A" => "Opulent Couples & Singles In Executive City & Suburban Areas",
+      "01B" => "Wealthy Singles In Small City Flats & Suburban Terraces",
+      "01C" => "Urban Living Professional Singles & Couples",
+      "01D" => "Wealthy & Educated Singles In Student Areas",
+      "02A" => "Opulent Older & Retired Households In Spacious Rural Properties",
+      "02B" => "Affluent Mature Families & Couples In Large Exclusive Detached Homes",
+      "02C" => "Affluent Mature Couples & Singles Some With School Age Children",
+      "02D" => "Wealthy Suburban Professionals In Mixed Tenure",
+      "03A" => "Wealthy Older Families In Spacious Suburban & Rural Detached & Semis",
+      "03B" => "Young & Mature Couples & Families In Large Rural Dwellings",
+      "03C" => "Well-Off Older Couples & Families In Large Detached & Semis",
+      "03D" => "Wealthy Mixed Households Living In Rural Communities",
+      "04A" => "Executive Households In Suburban Terraces & Semis",
+      "04B" => "Professional Homeowners In Detached & Semi Suburbia",
+      "04C" => "White Collar Homeowners In Outer Suburbs & Coastal Areas",
+      "04D" => "Mature Owner Occupiers In Rural & Coastal Neighbourhoods",
+      "04E" => "Couples & Families In Modern Rural & Suburban Developments",
+      "04F" => "Mature Couples & Families In Mortgaged Detached & Semis",
+      "05A" => "Singles, Couples & School Age Families In Mixed Housing",
+      "05B" => "Young & Older Single Mortgagees & Renters In Terraces & Flats",
+      "05C" => "Mature & Retired Singles In Areas Of Small Mixed Housing",
+      "05D" => "Young & Older Households In Coastal, Rural & Suburban Areas",
+      "05E" => "Mature Households In Scottish Industrial Suburbs & Rural Communities",
+      "05F" => "Young & Older Households In Areas Of Mixed Tenure",
+      "05G" => "Older Couples & Singles In Suburban Family Semis",
+      "06A" => "Less Affluent Communities In Areas Of Mixed Tenure",
+      "06B" => "Older & Mature Households In Suburban Semis & Terraces",
+      "06C" => "Mixed Households In Mostly Welsh Suburban Communities & Rural Areas",
+      "06D" => "Couples & Families With School Age & Older Children In Spacious Semis",
+      "06E" => "Mature Households In Less Affluent Suburban & Rural Areas",
+      "06F" => "Less Affluent Couples In Suburban Family Neighbourhoods",
+      "06G" => "Young Single & Family Communities In Small Terraces & Rented Flats",
+      "07A" => "Single Mortgagees & Renters In Pre-School Family Neighbourhoods",
+      "07B" => "Singles & Families In Ethnically Mixed Inner City & Suburban Areas",
+      "07C" => "Young Flat Dwelling Singles & Couples In Inner City Student Areas",
+      "07D" => "Young Singles, Couples & Students In Urban Areas",
+      "07E" => "Young Singles In Privately Rented & Housing Association Properties",
+      "08A" => "Poorer Retired Households In Owned & Rented Accommodation",
+      "08B" => "Older & Mature Households In Suburban Areas Of Mixed Tenure",
+      "08C" => "Older Households With School Age Children In Towns & Suburbs",
+      "08D" => "Poorer Young Singles In Suburban Family Areas",
+      "08E" => "Mixed Mortgagees & Council Tenants In Outer Suburbs",
+      "08F" => "Singles & Couples In Small Terraced Properties",
+      "09A" => "Poorer Singles In Outer Suburban Family Neighbourhoods",
+      "09B" => "Poorer Singles & Families In Mixed Tenure",
+      "09C" => "Suburban Scottish Households In Small Terraces & Flats",
+      "09D" => "Ethnically Mixed Young Families & Singles In Terraced Housing",
+      "09E" => "Poorer Couples & School Age Families In Terraced & Semis",
+      "09F" => "Flat Dwellers In Council & Housing Association Accommodation",
+      "09G" => "Young & Older Households In Housing Association & Mortgaged Homes",
+      "10A" => "Hi-Rise Flat Dwellers In Cosmopolitan Areas Of Mixed Tenure",
+      "10B" => "Council Tenants & Mortgagees In Scottish Suburbia",
+      "10C" => "Poorer Mortgagees & Council Renters In Family Neighbourhoods",
+      "10D" => "Singles & Single Parents In Suburban Hi-Rise Flats",
+      "10E" => "Mature Households In Small Terraces & Semis",
+      "10F" => "Poorer Singles In Local Authority Family Neighbourhoods",
+      "10G" => "Single Renters In Mixed Age Hi-Rise Communities",
+      "XXX" => "Communal Establishments In Mixed Neighbourhoods"
+    }
+
+    cameouk[key]
   end
 end
