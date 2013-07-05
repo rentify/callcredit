@@ -1,6 +1,7 @@
 require "callcredit/config_env"
 require "callcredit/errors"
 require "callcredit/xml_maker"
+require "callcredit/json_maker"
 require "savon"
 
 class CallCredit
