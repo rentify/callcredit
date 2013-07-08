@@ -8,6 +8,8 @@ class JSONmaker
 
     addresses = get_address(hash)
 
+    ccj = get_ccj(hash)
+
     bankruptcy = get_bankruptcy(hash)
 
     begin
@@ -27,6 +29,7 @@ class JSONmaker
 
     { forename: forename, surname: surname, dob: dob,
       addresses: addresses,
+      ccj: ccj,
       bankruptcy: bankruptcy,
       financial_risk: financial_risk,
       income_type: income_type,
@@ -47,6 +50,19 @@ class JSONmaker
       end
     rescue NoMethodError
       addresses = ["none found"]
+    end
+  end
+
+  def self.get_ccj hash
+    begin
+      ccj = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:judgments]
+      if ccj.has_key? :totalactiveamount
+        { total_active: ccj[:totalactive], total_satisfied: ccj[:totalsatisfied], total_value: ccj[:totalactiveamount] }
+      else
+        "none"
+      end
+    rescue NoMethodError
+      "none"
     end
   end
 
@@ -188,15 +204,15 @@ class JSONmaker
 
   def self.get_property_value key
     cameoproperty = {
-      "1"  => "between £836,507 and upwards",
-      "2"  => "between £662,759 and £836,498",
-      "3"  => "between £576,154 and £662,757",
-      "4"  => "between £520,726 and £576,153",
-      "5"  => "between £480,618 and £520,725",
-      "6"  => "between £370,725 and £480,614",
-      "7"  => "between £315,381 and £370,724",
-      "8"  => "between £278,665 and £315,380",
-      "9"  => "between £251,913 and £278,664",
+      "01" => "between £836,507 and upwards",
+      "02" => "between £662,759 and £836,498",
+      "03" => "between £576,154 and £662,757",
+      "04" => "between £520,726 and £576,153",
+      "05" => "between £480,618 and £520,725",
+      "06" => "between £370,725 and £480,614",
+      "07" => "between £315,381 and £370,724",
+      "08" => "between £278,665 and £315,380",
+      "09" => "between £251,913 and £278,664",
       "10" => "between £230,245 and £251,912",
       "11" => "between £211,808 and £230,244",
       "12" => "between £195,684 and £211,807",
