@@ -5,25 +5,48 @@ class JSONmaker
     forename = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:forename]
     surname = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:surname]
     dob = hash[:search07a_response][:search_result][:creditrequest][:applicant][:dob]
-    addresses = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:address]
 
-    # demographic
-    demographic = hash[:search07a_response][:search_result][:creditreport][:applicant][:demographics2006]
-    financial_risk = demographic[:cameofing] || "not found"
-    income_type = demographic[:cameoincome]
-    investor_category = demographic[:cameoinvestor]
-    property_value = demographic[:cameoproperty]
-    area_makeup = demographic[:cameouk]
+    addresses = get_address(hash)
 
-    { forename: forename, surname: surname, dob: dob, addresses: addresses,
-      financial_risk: get_financial_risk(financial_risk),
-      income_type: get_income_type(income_type),
-      investor_category: get_investor(investor_category),
-      property_value: get_property_value(property_value),
-      area_makeup: get_area_makeup(area_makeup) }
+    begin
+      demographic = hash[:search07a_response][:search_result][:creditreport][:applicant][:demographics2006]
+      financial_risk = get_financial_risk demographic[:cameofing]
+      income_type = get_income_type demographic[:cameoincome]
+      investor_category = get_investor demographic[:cameoinvestor]
+      property_value = get_property_value demographic[:cameoproperty]
+      area_makeup = get_area_makeup demographic[:cameouk]
+    rescue NoMethodError
+      financial_risk = "N/A"
+      income_type = "N/A"
+      investor_category = "N/A"
+      property_value = "N/A"
+      area_makeup = "N/A"
+    end
+
+    { forename: forename, surname: surname, dob: dob,
+      addresses: addresses,
+      financial_risk: financial_risk,
+      income_type: income_type,
+      investor_category: investor_category,
+      property_value: property_value,
+      area_makeup: area_makeup }
   end
 
   private
+
+  def self.get_address hash
+    begin
+      addresses = hash[:search07a_response][:search_result][:picklist][:applicant][:address][:fullmatches][:@reporttype]
+      if addresses == "0"
+        addresses = ["none found"]
+      else
+        addresses = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:address]
+      end
+    rescue NoMethodError
+      addresses = ["none found"]
+    end
+  end
+
   def self.get_financial_risk key
     cameofing = {
       "1" => "Lowest Risk",
