@@ -8,6 +8,8 @@ class JSONmaker
 
     addresses = get_address(hash)
 
+    bankruptcy = get_bankruptcy(hash)
+
     begin
       demographic = hash[:search07a_response][:search_result][:creditreport][:applicant][:demographics2006]
       financial_risk = get_financial_risk demographic[:cameofing]
@@ -25,6 +27,7 @@ class JSONmaker
 
     { forename: forename, surname: surname, dob: dob,
       addresses: addresses,
+      bankruptcy: bankruptcy,
       financial_risk: financial_risk,
       income_type: income_type,
       investor_category: investor_category,
@@ -44,6 +47,24 @@ class JSONmaker
       end
     rescue NoMethodError
       addresses = ["none found"]
+    end
+  end
+
+  def self.get_bankruptcy hash
+    insolvency = {
+      "A" => "Active",
+      "D" => "Discharged or completed",
+      "V" => "Revoked"
+    }
+    begin
+      bais = hash[:search07a_response][:search_result][:creditreport][:applicant][:bais]
+      courtname = bais[:bai][:courtname]
+      case_number = bais[:bai][:caseref]
+      discharge_date = bais[:bai][:orderdate]
+      status = insolvency[bais[:bai][:currentstatus]]
+      { courtname: courtname, case_number: case_number, discharge_date: discharge_date, status: status }
+    rescue NoMethodError
+      "none"
     end
   end
 

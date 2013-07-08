@@ -14,6 +14,7 @@ describe JSONmaker do
           {
             forename: "Bob", surname: "Smith", dob: "1966-06-09",
             addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF"],
+            bankruptcy: { courtname: "MERTHYR TYDFIL", case_number: "0000094", discharge_date: "2012-11-09", status: "Active" },
             financial_risk: "Highest Risk",
             income_type: "Poorer Terraced Communities",
             investor_category: "Terrace Residents",
@@ -35,6 +36,7 @@ describe JSONmaker do
         {
           forename: "Mike", surname: "Smith", dob: "1976-06-09",
           addresses: ["none found"],
+          bankruptcy: "none",
           financial_risk: "N/A",
           income_type: "N/A",
           investor_category: "N/A",
