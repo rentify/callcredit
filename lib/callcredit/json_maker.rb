@@ -4,7 +4,7 @@ class JSONmaker
   def self.parse(hash)
     forename = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:forename]
     surname = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:surname]
-    dob = hash[:search07a_response][:search_result][:creditrequest][:applicant][:dob]
+    dob = hash[:search07a_response][:search_result][:creditrequest][:applicant][:dob].strftime
 
     addresses = get_address(hash)
 
