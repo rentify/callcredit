@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "callcredit"
-  spec.version       = '0.6.1'
+  spec.version       = '0.6.2'
   spec.authors       = ["Aleksandar Simic"]
   spec.email         = ["aleks@rentify.com"]
   spec.description   = %q{a hopefully sane consumer of Call Credit API}
