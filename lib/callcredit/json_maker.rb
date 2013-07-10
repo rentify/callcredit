@@ -2,6 +2,7 @@
 
 class JSONmaker
   def self.parse(hash)
+    creditscore = hash[:search07a_response][:search_result][:creditreport][:applicant][:creditscore][:score]
     forename = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:forename]
     surname = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:surname]
     dob_format = "%d %B %Y"
@@ -28,7 +29,8 @@ class JSONmaker
       area_makeup = "N/A"
     end
 
-    { forename: forename, surname: surname, dob: dob,
+    { creditscore: creditscore,
+      forename: forename, surname: surname, dob: dob,
       addresses: addresses,
       ccj: ccj,
       bankruptcy: bankruptcy,
