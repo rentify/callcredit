@@ -58,7 +58,7 @@ describe JSONmaker do
       let(:expected) do
         {
           forename: "Elizabeth", surname: "Tabby", dob: "02 January 1986",
-          addresses: "606 ALLEY CAT LANE, TEST TOWN X9 9AA",
+          addresses: ["606 ALLEY CAT LANE, TEST TOWN X9 9AA"],
           ccj: { total_active: "1", total_satisfied: "0", total_value: "2222" },
           bankruptcy: "none",
           financial_risk: "Low Risk",

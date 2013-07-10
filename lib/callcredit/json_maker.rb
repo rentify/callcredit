@@ -48,6 +48,11 @@ class JSONmaker
         addresses = ["none found"]
       else
         addresses = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:address]
+        if addresses.class == String
+          [addresses]
+        else
+          addresses
+        end
       end
     rescue NoMethodError
       addresses = ["none found"]
