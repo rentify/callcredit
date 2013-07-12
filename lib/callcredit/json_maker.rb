@@ -47,17 +47,13 @@ class JSONmaker
     begin
       addresses = hash[:search07a_response][:search_result][:picklist][:applicant][:address][:fullmatches][:@reporttype]
       if addresses == "0"
-        addresses = ["none found"]
+       ["none found"]
       else
         addresses = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:address]
-        if addresses.class == String
-          [addresses]
-        else
-          addresses
-        end
+        addresses.class == Array ? addresses : [addresses]
       end
     rescue NoMethodError
-      addresses = ["none found"]
+      ["none found"]
     end
   end
 
