@@ -60,29 +60,16 @@ class JSONmaker
   def self.get_ccj hash
     begin
       ccj = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:judgments]
-      if ccj.has_key? :totalactiveamount
-        { total_active: ccj[:totalactive], total_satisfied: ccj[:totalsatisfied], total_value: ccj[:totalactiveamount] }
-      else
-        "none"
-      end
+      { active: ccj[:totalactive], satisfied: ccj[:totalsatisfied] }
     rescue NoMethodError
       "none"
     end
   end
 
   def self.get_bankruptcy hash
-    insolvency = {
-      "A" => "Active",
-      "D" => "Discharged or completed",
-      "V" => "Revoked"
-    }
     begin
-      bais = hash[:search07a_response][:search_result][:creditreport][:applicant][:bais]
-      courtname = bais[:bai][:courtname]
-      case_number = bais[:bai][:caseref]
-      discharge_date = bais[:bai][:orderdate]
-      status = insolvency[bais[:bai][:currentstatus]]
-      { courtname: courtname, case_number: case_number, discharge_date: discharge_date, status: status }
+      bnkrpt = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:bais]
+      { discharged: bnkrpt[:totaldischarged], insolvent: bnkrpt[:currentlyinsolvent], restricted: bnkrpt[:restricted] }
     rescue NoMethodError
       "none"
     end
