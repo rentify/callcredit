@@ -11,6 +11,8 @@ class JSONmaker
     date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
     dob = date.strftime("%d %B %Y")
 
+    dead_or_alive = get_life_status(report)
+
     addresses = get_address(report)
 
     electoral_roll = get_electoral_roll(report)
@@ -29,6 +31,7 @@ class JSONmaker
 
     { creditscore: creditscore,
       forename: forename, surname: surname, dob: dob,
+      dead_or_alive: dead_or_alive,
       addresses: addresses,
       electoral_roll: electoral_roll,
       ccj: ccj,
@@ -41,6 +44,17 @@ class JSONmaker
   end
 
   private
+
+  def self.get_life_status report
+    dead = "DEAD, registered as, please verify"
+    alive = "not found in the database of death records"
+    begin
+      status = report.xpath("//SearchResult/creditreport/applicant").attribute('ageflag').value
+      status == "3" ? dead : alive
+    rescue NoMethodError
+      alive
+    end
+  end
 
   def self.get_address report
     if report.xpath("//Search07aResponse/SearchResult/picklist/applicant/address/fullmatches[@reporttype='0']") == []

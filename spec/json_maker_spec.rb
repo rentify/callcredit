@@ -14,6 +14,7 @@ describe JSONmaker do
           {
             creditscore: "513",
             forename: "Bob", surname: "Smith", dob: "09 June 1966",
+            dead_or_alive: "not found in the database of death records",
             addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF", "37 OXFORD STREET, PONTYPRIDD CF37 1RU"],
             electoral_roll: "on electoral roll at the given address",
             ccj: {:active=>"0", :satisfied=>"0"},
@@ -39,6 +40,7 @@ describe JSONmaker do
         {
           creditscore: "9999",
           forename: "Mike", surname: "Smith", dob: "13 October 1944",
+          dead_or_alive: "not found in the database of death records",
           addresses: ["none found"],
           electoral_roll: "not on electoral roll at the given address",
           ccj: "none",
@@ -63,6 +65,7 @@ describe JSONmaker do
         {
           creditscore: "506",
           forename: "Elizabeth", surname: "Tabby", dob: "02 January 1986",
+          dead_or_alive: "not found in the database of death records",
           addresses: ["606 ALLEY CAT LANE, TEST TOWN X9 9AA"],
           electoral_roll: "on electoral roll at the given address",
           ccj: {:active=>"1", :satisfied=>"0"},
