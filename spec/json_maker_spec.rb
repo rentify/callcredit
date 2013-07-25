@@ -8,13 +8,13 @@ describe JSONmaker do
 
     context "when all the required fields are present" do
       context "when given a Hash of values" do
-        let(:hash) { person_hash }
-        let(:json) { JSONmaker.parse(hash) }
+        let(:xml) { person_xml }
+        let(:json) { JSONmaker.parse(xml) }
         let(:expected) do
           {
             creditscore: "513",
             forename: "Bob", surname: "Smith", dob: "09 June 1966",
-            addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF"],
+            addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF", "37 OXFORD STREET, PONTYPRIDD CF37 1RU"],
             ccj: {:active=>"0", :satisfied=>"0"},
             bankruptcy: {:discharged=>"0", :insolvent=>"1", :restricted=>"0"},
             financial_risk: "Highest Risk",
@@ -32,12 +32,12 @@ describe JSONmaker do
     end
 
     context "when all the required fields are not present" do
-      let(:hash) { person_hash_with_missing_fields }
-      let(:json) { JSONmaker.parse(hash) }
+      let(:xml) { person_xml_with_missing_fields }
+      let(:json) { JSONmaker.parse(xml) }
       let(:expected) do
         {
           creditscore: "9999",
-          forename: "Mike", surname: "Smith", dob: "09 June 1976",
+          forename: "Mike", surname: "Smith", dob: "13 October 1944",
           addresses: ["none found"],
           ccj: "none",
           bankruptcy: "none",
@@ -55,8 +55,8 @@ describe JSONmaker do
     end
 
     context "when a person searched has a CCJ" do
-      let(:hash) { person_with_ccj }
-      let(:json) { JSONmaker.parse(hash) }
+      let(:xml) { person_with_ccj }
+      let(:json) { JSONmaker.parse(xml) }
       let(:expected) do
         {
           creditscore: "506",

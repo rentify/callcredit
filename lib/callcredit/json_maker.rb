@@ -1,33 +1,29 @@
 # -*- coding: utf-8 -*-
+require 'date'
 
 class JSONmaker
-  def self.parse(hash)
-    creditscore = hash[:search07a_response][:search_result][:creditreport][:applicant][:creditscore][:score]
-    forename = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:forename]
-    surname = hash[:search07a_response][:search_result][:creditrequest][:applicant][:name][:surname]
-    dob_format = "%d %B %Y"
-    dob = hash[:search07a_response][:search_result][:creditrequest][:applicant][:dob].strftime(dob_format)
+  def self.parse(xml)
+    doc = Nokogiri::XML(xml)
+    report = doc.remove_namespaces!
+    creditscore = report.xpath("//creditreport/applicant/creditscore/score").text
+    forename = report.xpath("//creditrequest/applicant/name/forename").text
+    surname = report.xpath("//creditrequest/applicant/name/surname").text
+    date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
+    dob = date.strftime("%d %B %Y")
 
-    addresses = get_address(hash)
+    addresses = get_address(report)
 
-    ccj = get_ccj(hash)
+    ccj = get_ccj(report)
 
-    bankruptcy = get_bankruptcy(hash)
+    bankruptcy = get_bankruptcy(report)
 
-    begin
-      demographic = hash[:search07a_response][:search_result][:creditreport][:applicant][:demographics2006]
-      financial_risk = get_financial_risk demographic[:cameofing]
-      income_type = get_income_type demographic[:cameoincome]
-      investor_category = get_investor demographic[:cameoinvestor]
-      property_value = get_property_value demographic[:cameoproperty]
-      area_makeup = get_area_makeup demographic[:cameouk]
-    rescue NoMethodError
-      financial_risk = "N/A"
-      income_type = "N/A"
-      investor_category = "N/A"
-      property_value = "N/A"
-      area_makeup = "N/A"
-    end
+    demographic = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/demographics2006")
+
+    financial_risk = get_financial_risk demographic.xpath("//cameofing").text
+    income_type = get_income_type demographic.xpath("//cameoincome").text
+    investor_category = get_investor demographic.xpath("//cameoinvestor").text
+    property_value =  get_property_value demographic.xpath("//cameoproperty").text
+    area_makeup = get_area_makeup demographic.xpath("//cameouk").text
 
     { creditscore: creditscore,
       forename: forename, surname: surname, dob: dob,
@@ -43,35 +39,39 @@ class JSONmaker
 
   private
 
-  def self.get_address hash
-    begin
-      addresses = hash[:search07a_response][:search_result][:picklist][:applicant][:address][:fullmatches][:@reporttype]
-      if addresses == "0"
-       ["none found"]
-      else
-        addresses = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:address]
-        addresses.class == Array ? addresses : [addresses]
-      end
-    rescue NoMethodError
+  def self.get_address report
+    if report.xpath("//Search07aResponse/SearchResult/picklist/applicant/address/fullmatches[@reporttype='0']") == []
       ["none found"]
+    else
+      addresses = []
+      report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/address").each do |ad|
+        addresses << ad.text
+      end
+
+      addresses << "none found" if addresses.empty?
+
+      addresses
     end
   end
 
-  def self.get_ccj hash
-    begin
-      ccj = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:judgments]
-      { active: ccj[:totalactive], satisfied: ccj[:totalsatisfied] }
-    rescue NoMethodError
+  def self.get_ccj report
+    judgments = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/judgments")
+    if judgments.empty?
       "none"
+    else
+      { active: judgments.xpath("//totalactive").text, satisfied: judgments.xpath("//totalsatisfied").text }
     end
   end
 
-  def self.get_bankruptcy hash
-    begin
-      bnkrpt = hash[:search07a_response][:search_result][:creditreport][:applicant][:summary][:bais]
-      { discharged: bnkrpt[:totaldischarged], insolvent: bnkrpt[:currentlyinsolvent], restricted: bnkrpt[:restricted] }
-    rescue NoMethodError
+  def self.get_bankruptcy report
+    bnkrpt = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/bais")
+    if bnkrpt.empty?
       "none"
+    else
+      discharged = bnkrpt.xpath("//totaldischarged").text
+      insolvent = bnkrpt.xpath("//currentlyinsolvent").text
+      restricted = bnkrpt.xpath("//restricted").text
+      { discharged: discharged, insolvent: insolvent, restricted: restricted }
     end
   end
 
@@ -86,7 +86,7 @@ class JSONmaker
       "7" => "Highest Risk"
     }
 
-    cameofing[key]
+    cameofing[key] || "N/A"
   end
 
   def self.get_income_type key
@@ -141,7 +141,7 @@ class JSONmaker
       "86" => "Couples & Singles In Rented Accommodation",
       "XX" => "Communal Establishments In Mixed Neighbourhoods"
     }
-    cameoincome[key]
+    cameoincome[key] || "N/A"
   end
 
   def self.get_investor key
@@ -190,7 +190,7 @@ class JSONmaker
       "76" => "Young Educated Neighbourhoods",
       "XX" => "Communal Establishments In Mixed Neighbourhoods"
     }
-    cameoinvestor[key]
+    cameoinvestor[key] || "N/A"
   end
 
   def self.get_property_value key
@@ -221,7 +221,7 @@ class JSONmaker
       "24" => "between £0 and £71,235"
     }
 
-    cameoproperty[key]
+    cameoproperty[key] || "N/A"
   end
 
   def self.get_area_makeup key
@@ -286,6 +286,6 @@ class JSONmaker
       "XXX" => "Communal Establishments In Mixed Neighbourhoods"
     }
 
-    cameouk[key]
+    cameouk[key] || "N/A"
   end
 end

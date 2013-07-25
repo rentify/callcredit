@@ -27,7 +27,7 @@ class CallCredit
     raise NoAddressError, "no address added" if @addresses.length == 0
     payload = XMLmaker.person(self)
     response = @client.call(:search07a, xml: payload)
-    JSONmaker.parse response.body
+    JSONmaker.parse response.to_xml
   end
 
   def add_address(*args)
