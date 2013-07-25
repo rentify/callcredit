@@ -13,6 +13,8 @@ class JSONmaker
 
     addresses = get_address(report)
 
+    electoral_roll = get_electoral_roll(report)
+
     ccj = get_ccj(report)
 
     bankruptcy = get_bankruptcy(report)
@@ -28,6 +30,7 @@ class JSONmaker
     { creditscore: creditscore,
       forename: forename, surname: surname, dob: dob,
       addresses: addresses,
+      electoral_roll: electoral_roll,
       ccj: ccj,
       bankruptcy: bankruptcy,
       financial_risk: financial_risk,
@@ -52,6 +55,13 @@ class JSONmaker
 
       addresses
     end
+  end
+
+  def self.get_electoral_roll report
+     roll = report.xpath("//addressconf[address/@current='1']/resident[@matchtype='IM' and (@currentname='1' or @declaredalias='1')]/ervalid").text
+    found = "on electoral roll at the given address"
+    not_found = "not on electoral roll at the given address"
+    roll == "1" ? found : not_found
   end
 
   def self.get_ccj report
