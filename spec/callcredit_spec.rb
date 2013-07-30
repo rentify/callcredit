@@ -43,7 +43,7 @@ describe CallCredit do
 
     context "when a non valid attribute is added" do
       it "should return an error" do
-        expect { cc.add_address(ninja: 7) }.to raise_error AddressError
+        expect { cc.add_address(ninja: 7) }.to raise_error CallCredit::AddressError
       end
     end
 
@@ -51,13 +51,13 @@ describe CallCredit do
       before { 10.times { cc.add_address(number: 7, postcode: "QP") } }
 
       it "should fail" do
-        expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error AddressError
+        expect { cc.add_address(number: 7, postcode: "QP")  }.to raise_error CallCredit::AddressError
       end
     end
   end
 
   describe "#people" do
-    let(:cc) { CallCredit.new }
+    let(:cc) { CallCredit::Search.new }
 
     specify { cc.people.should be_kind_of Array }
   end
@@ -103,7 +103,7 @@ describe CallCredit do
 
   describe "configuration" do
     it "should have configuration options" do
-      cc.conf.should be_kind_of ConfigEnv
+      pending
     end
   end
 
