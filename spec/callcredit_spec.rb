@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe CallCredit do
 
-  let(:cc) { CallCredit.new }
+  let(:cc) { CallCredit::Search.new }
 
   describe "#client" do
     it "should be available" do
@@ -89,13 +89,13 @@ describe CallCredit do
       it "should throw an error" do
         expect {
           cc.add_person(forename: "Sven", surname: "Flip", dob: "1943-03-06")
-        }.to raise_error PersonError
+        }.to raise_error CallCredit::PersonError
       end
     end
 
     context "when a non valid attribute is added" do
       it "should return an error" do
-        expect { cc.add_person(made_up: "irrelevant value") }.to raise_error PersonError
+        expect { cc.add_person(made_up: "irrelevant value") }.to raise_error CallCredit::PersonError
       end
     end
 
@@ -113,7 +113,7 @@ describe CallCredit do
     end
 
     context "when a query is submitted" do
-      let!(:cc) { CallCredit.new }
+      let!(:cc) { CallCredit::Search.new }
       let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
       let!(:address) { cc.add_address(number: 7, postcode: "W1") }
 
@@ -125,19 +125,19 @@ describe CallCredit do
     end
 
     context "when a person is added only" do
-      let(:cc) { CallCredit.new }
+      let(:cc) { CallCredit::Search.new }
 
       it "should raise an error" do
-        expect { cc.search }.to raise_error NoPersonError
+        expect { cc.search }.to raise_error CallCredit::NoPersonError
       end
     end
 
     context "when no address is added" do
-      let!(:cc) { CallCredit.new }
+      let!(:cc) { CallCredit::Search.new }
       let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
 
       it "should raise an error" do
-        expect { cc.search }.to raise_error NoAddressError
+        expect { cc.search }.to raise_error CallCredit::NoAddressError
       end
     end
   end

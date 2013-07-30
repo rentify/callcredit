@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 require 'spec_helper'
 
-describe JSONmaker do
+describe CallCredit::JSONmaker do
 
   describe ".parse" do
-    specify { JSONmaker.should respond_to :parse }
+    specify { CallCredit::JSONmaker.should respond_to :parse }
 
     context "when all the required fields are present" do
       context "when given a Hash of values" do
         let(:xml) { person_xml }
-        let(:json) { JSONmaker.parse(xml) }
+        let(:json) { CallCredit::JSONmaker.parse(xml) }
         let(:expected) do
           {
             creditscore: "513",
@@ -35,7 +35,7 @@ describe JSONmaker do
 
     context "when all the required fields are not present" do
       let(:xml) { person_xml_with_missing_fields }
-      let(:json) { JSONmaker.parse(xml) }
+      let(:json) { CallCredit::JSONmaker.parse(xml) }
       let(:expected) do
         {
           creditscore: "9999",
@@ -60,7 +60,7 @@ describe JSONmaker do
 
     context "when a person searched has a CCJ" do
       let(:xml) { person_with_ccj }
-      let(:json) { JSONmaker.parse(xml) }
+      let(:json) { CallCredit::JSONmaker.parse(xml) }
       let(:expected) do
         {
           creditscore: "506",
