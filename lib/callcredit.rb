@@ -35,14 +35,3 @@ module CallCredit
   end
 
 end
-
-
-
-# CallCredit.configure do |config|
-#   config.company = 'pone'
-#   config.username = 'ptwo'
-#   config.passowrd = 'pthree'
-# end
-
-
-# CallCredit.configuration.company = 'test'
