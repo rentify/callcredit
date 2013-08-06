@@ -19,9 +19,9 @@ module CallCredit
         node.add_child purpose
       end
 
-      data.addresses.each do |ad|
+      data.addresses.each do |location|
         template.xpath("#{body}#{request}#{applicant}").each do |node|
-          node.add_child address(ad[:number], ad[:postcode])
+          node.add_child address(location)
         end
       end
 
@@ -90,13 +90,14 @@ module CallCredit
         purp.doc.root.children.to_xml
       end
 
-      def self.address(number, postcode)
+      def self.address(location)
         ns = {"xmlns:soap" => "definition"}
         address = Nokogiri::XML::Builder.new do |xml|
           xml.root(ns) do
             xml["soap"].address do
-              xml["soap"].buildingno number
-              xml["soap"].postcode postcode
+              xml["soap"].buildingno location[:number] if location[:number]
+              xml["soap"].buildingname location[:buildingname] if location[:buildingname]
+              xml["soap"].postcode location[:postcode]
             end
           end
         end
