@@ -26,12 +26,6 @@ module CallCredit
 
   class Configuration
     attr_accessor :company, :username, :password
-
-    def initialize
-      @company = 'company_name'
-      @username = 'pone'
-      @password = 'ptwo'
-    end
   end
 
 end
