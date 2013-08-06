@@ -4,6 +4,14 @@ describe CallCredit do
 
   let(:cc) { CallCredit::Search.new }
 
+  before do
+    CallCredit.configure do |config|
+      config.company = 'company'
+      config.username = 'username'
+      config.password = 'password'
+    end
+  end
+
   describe "#client" do
     it "should be available" do
       cc.client.should be_kind_of Savon::Client

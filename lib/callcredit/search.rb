@@ -54,7 +54,7 @@ module CallCredit
     end
 
     def validate_address_params(*args)
-      valid_attribs = [:number, :postcode, :street, :place]
+      valid_attribs = [:number, :buildingname, :postcode, :street, :place]
 
       args.flatten.each do |arg|
         arg.each do |k,v|
