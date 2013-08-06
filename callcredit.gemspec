@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "callcredit"
-  spec.version       = '0.9.0'
+  spec.version       = '0.9.1'
   spec.authors       = ["Aleksandar Simic"]
   spec.email         = ["aleks@rentify.com"]
   spec.description   = %q{a hopefully sane consumer of Call Credit API}
@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "savon", "2.2.0"
   spec.add_dependency "nokogiri", "1.6.0"
+  spec.add_dependency "i18n"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
