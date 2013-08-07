@@ -7,7 +7,7 @@ module CallCredit
       @addresses = []
       @people = []
       @client = Savon.client do |globals|
-        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.wsdl")
+        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.production.wsdl")
         globals.log false
       end
     end

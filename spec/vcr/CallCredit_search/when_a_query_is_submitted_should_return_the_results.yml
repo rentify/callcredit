@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://ct.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
+    uri: https://www.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
     body:
       encoding: US-ASCII
       string: ! "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
@@ -55,6 +55,65 @@ http_interactions:
         reporttype="0" /></address></applicant></picklist><creditreport searchid="{387E953D-3539-4D3F-ADE9-273E7CD158DE}"
         linktype="0"><applicant reporttype="0" tpoptout="1" reporttitle="Address not
         found"><creditscore><score class="2">9999</score><reasons><code>0</code><code>0</code><code>0</code><code>0</code></reasons></creditscore></applicant></creditreport></SearchResult></Search07aResponse></soap:Body></soap:Envelope>
-    http_version: 
+    http_version:
   recorded_at: Thu, 25 Jul 2013 08:05:25 GMT
+- request:
+    method: post
+    uri: https://www.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
+    body:
+      encoding: US-ASCII
+      string: ! "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
+        xmlns:soap=\"urn:callcredit.co.uk/soap:callreport7\">\n  <soapenv:Header>\n
+        \   <soap:callcreditheaders>\n      <soap:company>company</soap:company>\n
+        \     <soap:username>username</soap:username>\n      <soap:password>password</soap:password>\n
+        \   </soap:callcreditheaders>\n  </soapenv:Header>\n  <soapenv:Body>\n    <soap:Search07a>\n
+        \ <soap:SearchDefinition>\n    <soap:creditrequest schemaversion=\"7.0\" datasets=\"255\">\n
+        \     <soap:applicant><soap:address>\n  <soap:buildingno>7</soap:buildingno>\n
+        \ <soap:postcode>W1</soap:postcode>\n</soap:address><soap:name>\n  <soap:forename>Julia</soap:forename>\n
+        \ <soap:surname>Audi</soap:surname>\n</soap:name><soap:dob>1943-03-06</soap:dob><soap:hho>0</soap:hho><soap:tpoptout>1</soap:tpoptout><soap:applicantdemographics>\n
+        \ <soap:employment/>\n</soap:applicantdemographics></soap:applicant>\n    <soap:score>1</soap:score><soap:purpose>TV</soap:purpose><soap:autosearch>1</soap:autosearch><soap:autosearchmaximum>3</soap:autosearchmaximum></soap:creditrequest>\n
+        \ </soap:SearchDefinition>\n</soap:Search07a>\n  </soapenv:Body>\n</soapenv:Envelope>"
+    headers:
+      Soapaction:
+      - ! '"urn:callcredit.co.uk/soap:callreport7/Search07a"'
+      Content-Type:
+      - text/xml;charset=UTF-8
+      Content-Length:
+      - '1144'
+  response:
+    status:
+      code: 500
+      message: !binary |-
+        SW50ZXJuYWwgU2VydmVyIEVycm9y
+    headers:
+      !binary "RGF0ZQ==":
+      - !binary |-
+        V2VkLCAwNyBBdWcgMjAxMyAwOToxODoxMyBHTVQ=
+      !binary "Q2FjaGUtQ29udHJvbA==":
+      - !binary |-
+        cHJpdmF0ZQ==
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC94bWw7IGNoYXJzZXQ9dXRmLTg=
+      !binary "Q29ubmVjdGlvbg==":
+      - !binary |-
+        Y2xvc2U=
+      !binary "VHJhbnNmZXItRW5jb2Rpbmc=":
+      - !binary |-
+        Y2h1bmtlZA==
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c29hcDpF
+        bnZlbG9wZSB4bWxuczpzb2FwPSJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9y
+        Zy9zb2FwL2VudmVsb3BlLyIgeG1sbnM6eHNpPSJodHRwOi8vd3d3LnczLm9y
+        Zy8yMDAxL1hNTFNjaGVtYS1pbnN0YW5jZSIgeG1sbnM6eHNkPSJodHRwOi8v
+        d3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSI+PHNvYXA6Qm9keT48c29hcDpG
+        YXVsdD48ZmF1bHRjb2RlPnNvYXA6Q2xpZW50PC9mYXVsdGNvZGU+PGZhdWx0
+        c3RyaW5nPkVycm9yKHMpPC9mYXVsdHN0cmluZz48ZGV0YWlsPjxFcnJvckJs
+        b2NrPjxFcnJvcj5Vc2VyIGxvZ29uIGZhaWxlZC4gVXNlciBhY2NvdW50IGNv
+        dWxkIG5vdCBiZSBmb3VuZDwvRXJyb3I+PC9FcnJvckJsb2NrPjwvZGV0YWls
+        Pjwvc29hcDpGYXVsdD48L3NvYXA6Qm9keT48L3NvYXA6RW52ZWxvcGU+
+    http_version:
+  recorded_at: Wed, 07 Aug 2013 09:18:14 GMT
 recorded_with: VCR 2.5.0
