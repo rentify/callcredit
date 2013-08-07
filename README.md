@@ -16,26 +16,24 @@ Or install it yourself as:
 
     $ gem install callcredit
 
+## Configuration
+
+    CallCredit.configure do |config|
+      config.company = 'company_name'
+      config.username = 'username'
+      config.password = 'password'
+    end
+
+
 ## Usage
 
-The configuration for the gem resides under the **config/config.yml**.
-Edit it with the appropriate values, build the gem, install & require
-it to use it:
 
     require 'callcredit'
 
 and then
 
-    cc = CallCredit.new
+    cc = CallCredit::Search.new
 
-or
-    cc = CallCredit.new(:production)
-
-where **:production** is the environment you wish to run it in. (When
-no argument is provided, the default environment will be **test**!).
-
-This will read the gem's config file and the appropriate environment
-settings.
 
 To perform a search, you'd provide the following information on a
 person:
