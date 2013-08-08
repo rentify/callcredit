@@ -30,8 +30,7 @@ def xml_result
             </soap:applicant>
             <soap:score>1</soap:score>
             <soap:purpose>TV</soap:purpose>
-            <soap:autosearch>1</soap:autosearch>
-            <soap:autosearchmaximum>3</soap:autosearchmaximum>
+            <soap:autosearch>0</soap:autosearch>
           </soap:creditrequest>
         </soap:SearchDefinition>
       </soap:Search07a>
@@ -70,8 +69,7 @@ def xml_result_with_building_name
             </soap:applicant>
             <soap:score>1</soap:score>
             <soap:purpose>TV</soap:purpose>
-            <soap:autosearch>1</soap:autosearch>
-            <soap:autosearchmaximum>3</soap:autosearchmaximum>
+            <soap:autosearch>0</soap:autosearch>
           </soap:creditrequest>
         </soap:SearchDefinition>
       </soap:Search07a>
