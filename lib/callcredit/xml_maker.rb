@@ -83,8 +83,11 @@ module CallCredit
           xml.root(ns) do
             xml["soap"].score 1
             xml["soap"].purpose "TV"
-            xml["soap"].autosearch 1
-            xml["soap"].autosearchmaximum 3
+            # Auto searching will automatically search any undeclared addresses up to the number you set in <autosearchmaximum>.
+            # Each extra address searched is charged.  The advantage is that it will find hidden CCJs and BAI’s, but the trade
+            # off is obviously costs. Set autosearch to 1 if you want to use it.
+            xml["soap"].autosearch 0
+            # xml["soap"].autosearchmaximum 3
           end
         end
         purp.doc.root.children.to_xml
