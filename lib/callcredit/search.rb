@@ -13,11 +13,13 @@ module CallCredit
     end
 
     def search
-      raise NoPersonError, "no person added" if @people.length == 0
-      raise NoAddressError, "no address added" if @addresses.length == 0
+      raise CallCredit::NoPersonError, "no person added" if @people.length == 0
+      raise CallCredit::NoAddressError, "no address added" if @addresses.length == 0
       payload = CallCredit::XMLmaker.person(self)
       response = @client.call(:search07a, xml: payload)
       CallCredit::JSONmaker.parse response.to_xml
+      rescue Savon::Error => error
+        raise CallCredit::DataError, error.to_hash
     end
 
     def add_address(*args)

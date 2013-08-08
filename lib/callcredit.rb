@@ -13,7 +13,7 @@ module CallCredit
   class CallCredit::PersonError < StandardError; end
   class CallCredit::NoPersonError < StandardError; end
   class CallCredit::NoAddressError < StandardError; end
-
+  class CallCredit::DataError < StandardError; end
 
   class << self
     attr_accessor :configuration
