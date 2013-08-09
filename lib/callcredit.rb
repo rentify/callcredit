@@ -25,7 +25,7 @@ module CallCredit
   end
 
   class Configuration
-    attr_accessor :company, :username, :password
+    attr_accessor :company, :username, :password, :environment
   end
 
 end

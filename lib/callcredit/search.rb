@@ -6,8 +6,9 @@ module CallCredit
     def initialize
       @addresses = []
       @people = []
+      environment = CallCredit.configuration.environment != 'production' ? 'development' : 'production'
       @client = Savon.client do |globals|
-        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.production.wsdl")
+        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.#{environment}.wsdl")
         globals.log false
       end
     end

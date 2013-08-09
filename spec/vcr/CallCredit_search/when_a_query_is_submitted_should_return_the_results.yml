@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: https://www.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
+    uri: https://ct.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
     body:
       encoding: US-ASCII
       string: ! "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
@@ -59,7 +59,7 @@ http_interactions:
   recorded_at: Thu, 25 Jul 2013 08:05:25 GMT
 - request:
     method: post
-    uri: https://www.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
+    uri: https://ct.callcreditsecure.co.uk/Services/CallReport/callreport7.asmx
     body:
       encoding: US-ASCII
       string: ! "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\"
