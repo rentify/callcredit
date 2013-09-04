@@ -82,7 +82,7 @@ module CallCredit
     def self.get_ccj report
       judgments = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/judgments")
       if judgments.empty?
-        "none"
+        { active: '0', satisfied: '0' }
       else
         { active: judgments.xpath("//totalactive").text, satisfied: judgments.xpath("//totalsatisfied").text }
       end
@@ -91,7 +91,7 @@ module CallCredit
     def self.get_bankruptcy report
       bnkrpt = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/bais")
       if bnkrpt.empty?
-        "none"
+        { discharged: '0', insolvent: '0', restricted: '0' }
       else
         discharged = bnkrpt.xpath("//totaldischarged").text
         insolvent = bnkrpt.xpath("//currentlyinsolvent").text
