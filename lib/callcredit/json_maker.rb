@@ -6,7 +6,7 @@ module CallCredit
     def self.parse(xml)
       doc = Nokogiri::XML(xml)
       report = doc.remove_namespaces!
-      creditscore = report.xpath("//creditreport/applicant/creditscore/score").text
+      creditscore = report.xpath("//creditreport/applicant/creditscore/score").text || 0
       forename = report.xpath("//creditrequest/applicant/name/forename").text
       surname = report.xpath("//creditrequest/applicant/name/surname").text
       date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
