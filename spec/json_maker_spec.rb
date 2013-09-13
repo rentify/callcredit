@@ -38,7 +38,7 @@ describe CallCredit::JSONmaker do
       let(:json) { CallCredit::JSONmaker.parse(xml) }
       let(:expected) do
         {
-          creditscore: "9999",
+          creditscore: "0",
           forename: "Mike", surname: "Smith", dob: "13 October 1944",
           dead_or_alive: "not found in the database of death records",
           addresses: ["none found"],

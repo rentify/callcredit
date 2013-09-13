@@ -6,7 +6,10 @@ module CallCredit
     def self.parse(xml)
       doc = Nokogiri::XML(xml)
       report = doc.remove_namespaces!
-      creditscore = report.xpath("//creditreport/applicant/creditscore/score").text || 0
+
+      creditscore = report.xpath("//creditreport/applicant/creditscore/score").text
+      creditscore = creditscore.to_i > 999 ? 0 : creditscore
+
       forename = report.xpath("//creditrequest/applicant/name/forename").text
       surname = report.xpath("//creditrequest/applicant/name/surname").text
       date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
@@ -30,7 +33,7 @@ module CallCredit
       property_value =  get_property_value demographic.xpath("//cameoproperty").text
       area_makeup = get_area_makeup demographic.xpath("//cameouk").text
 
-      { creditscore: creditscore,
+      { creditscore: creditscore.to_s,
         forename: forename, surname: surname, dob: dob,
         dead_or_alive: dead_or_alive,
         addresses: addresses,
