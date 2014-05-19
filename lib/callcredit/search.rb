@@ -21,7 +21,7 @@ module CallCredit
       @response = @client.call(:search07a, xml: payload)
       CallCredit::JSONmaker.parse @response.to_xml
       rescue Savon::Error => error
-        raise CallCredit::DataError, error.to_hash
+        raise CallCredit::DataError, error.to_hash[:fault][:faultstring]
     end
 
     def add_address(*args)
