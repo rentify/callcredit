@@ -10,7 +10,10 @@ module CallCredit
       environment = CallCredit.configuration.environment != 'production' ? 'development' : 'production'
       @client = Savon.client do |globals|
         globals.wsdl File.join(ROOT_PATH, "data/CallReport7.#{environment}.wsdl")
-        globals.log false
+        globals.log true
+        globals.log_level :debug
+        globals.logger $logger
+
       end
     end
 
