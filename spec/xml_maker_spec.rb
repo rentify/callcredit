@@ -11,7 +11,7 @@ describe CallCredit::XMLmaker do
 
   let!(:cc) do
     cc = CallCredit::Search.new
-    cc.add_address(number: 10, postcode: "X9 9LF")
+    cc.add_address(number: 10, postcode: "X9 9LF", abodeno: '')
     cc.add_person(forename: "Julia", surname: "Audi", dob: "1910-01-01")
     cc
   end
