@@ -11,7 +11,7 @@ describe CallCredit::XMLmaker do
 
   let!(:cc) do
     cc = CallCredit::Search.new
-    cc.add_address(number: 10, postcode: "X9 9LF", abodeno: '')
+    cc.add_address(number: 10, postcode: "X9 9LF")
     cc.add_person(forename: "Julia", surname: "Audi", dob: "1910-01-01")
     cc
   end
@@ -31,11 +31,4 @@ describe CallCredit::XMLmaker do
     Hash.from_xml(xml).should eq Hash.from_xml(xml_result_with_building_name)
   end
 
-  it "creates XML for a person search using abodeno if number is not provided" do
-    cc = CallCredit::Search.new
-    cc.add_address(buildingname: "RentifyHq", postcode: "X9 9LF", abodeno: 'abodeno')
-    cc.add_person(forename: "Julia", surname: "Audi", dob: "1910-01-01")
-    xml = CallCredit::XMLmaker.person(cc)
-    Hash.from_xml(xml).should eq Hash.from_xml(xml_result_with_abodeno)
-  end
 end
