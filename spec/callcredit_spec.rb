@@ -10,6 +10,10 @@ describe CallCredit do
       config.username = 'username'
       config.password = 'password'
     end
+
+    $logger = double('logger')
+    allow($logger).to receive(:info)
+    allow($logger).to receive(:debug)
   end
 
   describe "#client" do
