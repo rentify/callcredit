@@ -98,6 +98,7 @@ module CallCredit
         address = Nokogiri::XML::Builder.new do |xml|
           xml.root(ns) do
             xml["soap"].address do
+              xml["soap"].abodeno location[:abodeno] if location[:abodeno].present?
               xml["soap"].buildingno location[:number] if location[:number]
               xml["soap"].buildingname location[:buildingname] if location[:buildingname]
               xml["soap"].postcode location[:postcode]
