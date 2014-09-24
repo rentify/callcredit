@@ -1,5 +1,14 @@
 module CallCredit
   class Client
+    def initialize(environment, logger)
+      @client = Savon.client do |globals|
+        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.#{environment}.wsdl")
+        globals.log true
+        globals.log_level :debug
+        globals.logger logger
+      end
+    end
+
     def search(searcher)
       payload = CallCredit::XMLmaker.person(searcher)
       response = @client.call(:search07a, xml: payload)

@@ -9,12 +9,7 @@ module CallCredit
       @response = nil
       @environment = CallCredit.configuration.environment != 'production' ? 'development' : 'production'
       if @environment == 'production'
-        @client = Savon.client do |globals|
-          globals.wsdl File.join(ROOT_PATH, "data/CallReport7.#{@environment}.wsdl")
-          globals.log true
-          globals.log_level :debug
-          globals.logger $logger
-        end
+        @client = CallCredit::Client.new(environment, $logger)
       else
         @client = CallCredit::FakeClient.new
       end
