@@ -1,3 +1,5 @@
+require "callcredit/client"
+require "callcredit/fake_client"
 require "callcredit/search"
 require "callcredit/xml_maker"
 require "callcredit/json_maker"

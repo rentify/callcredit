@@ -8,26 +8,19 @@ module CallCredit
       @people = []
       @response = nil
       environment = CallCredit.configuration.environment != 'production' ? 'development' : 'production'
-      @client = Savon.client do |globals|
-        globals.wsdl File.join(ROOT_PATH, "data/CallReport7.#{environment}.wsdl")
-        globals.log true
-        globals.log_level :debug
-        globals.logger $logger
-
+      if environment == 'production'
+        @client = CallCredit::Client.new(environment, $logger)
+      else
+        @client = CallCredit::FakeClient.new
       end
     end
 
     def search
       raise CallCredit::NoPersonError, "no person added" if @people.length == 0
       raise CallCredit::NoAddressError, "no address added" if @addresses.length == 0
-      payload = CallCredit::XMLmaker.person(self)
-      @response = @client.call(:search07a, xml: payload)
-      CallCredit::JSONmaker.parse @response.to_xml
-      rescue Savon::Error => error
-        error_code = error.to_hash[:fault][:faultcode]
-        error_string = error.to_hash[:fault][:faultstring]
-        error_detail = error.to_hash[:fault][:detail][:error_block][:error]
-        raise CallCredit::DataError, "#{error_code}: #{error_string} ---- #{error_detail}"
+
+      @response, result = @client.search self
+      result
     end
 
     def add_address(*args)
