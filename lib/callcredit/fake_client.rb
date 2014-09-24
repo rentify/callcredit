@@ -6,7 +6,7 @@ module CallCredit
       person = searcher.people.first
       addresses = searcher.addresses
       score = addresses.first[:number]
-      result = OpenStruct.new({ creditscore: score,
+      result = { creditscore: score,
         forename: person[:forename], surname: person[:surname], dob: person[:dob],
         dead_or_alive: 'alive',
         addresses: addresses,
@@ -18,7 +18,7 @@ module CallCredit
         investor_category: '',
         property_value: '',
         area_makeup: '',
-      })
+      }
       [result, result]
     end
   end
