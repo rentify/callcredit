@@ -12,7 +12,7 @@ module CallCredit
     def search(searcher)
       payload = CallCredit::XMLmaker.person(searcher)
       response = @client.call(:search07a, xml: payload)
-      [response, CallCredit::JSONmaker.parse response.to_xml]
+      [response, CallCredit::JSONmaker.parse(response.to_xml)]
     rescue Savon::Error => error
       error_code = error.to_hash[:fault][:faultcode]
       error_string = error.to_hash[:fault][:faultstring]

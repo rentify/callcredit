@@ -114,36 +114,44 @@ describe CallCredit do
   end
 
   describe "#search" do
-    it "should be defined" do
-      cc.should respond_to :search
-    end
+    %w(development production).each do |env|
+      context env do
+        before do
+          ENV['RAILS_ENV'] = env
+          allow(CallCredit.configuration).to receive(:environment) { env }
+        end
+        it "should be defined" do
+          cc.should respond_to :search
+        end
 
-    context "when a query is submitted" do
-      let!(:cc) { CallCredit::Search.new }
-      let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
-      let!(:address) { cc.add_address(number: 7, postcode: "W1") }
+        context "when a query is submitted" do
+          let!(:cc) { CallCredit::Search.new }
+          let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+          let!(:address) { cc.add_address(number: 7, postcode: "W1") }
 
-      subject { cc.search }
+          subject { cc.search }
 
-      it "should return the results", :vcr do
-        subject.should be_kind_of Hash
-      end
-    end
+          it "should return the results", :vcr do
+            subject.should be_kind_of Hash
+          end
+        end
 
-    context "when a person is added only" do
-      let(:cc) { CallCredit::Search.new }
+        context "when a person is added only" do
+          let(:cc) { CallCredit::Search.new }
 
-      it "should raise an error" do
-        expect { cc.search }.to raise_error CallCredit::NoPersonError
-      end
-    end
+          it "should raise an error" do
+            expect { cc.search }.to raise_error CallCredit::NoPersonError
+          end
+        end
 
-    context "when no address is added" do
-      let!(:cc) { CallCredit::Search.new }
-      let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+        context "when no address is added" do
+          let!(:cc) { CallCredit::Search.new }
+          let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
 
-      it "should raise an error" do
-        expect { cc.search }.to raise_error CallCredit::NoAddressError
+          it "should raise an error" do
+            expect { cc.search }.to raise_error CallCredit::NoAddressError
+          end
+        end
       end
     end
   end
