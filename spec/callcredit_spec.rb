@@ -18,7 +18,7 @@ describe CallCredit do
 
   describe "#client" do
     it "should be available" do
-      cc.client.should be_kind_of Savon::Client
+      cc.client.should be_kind_of CallCredit::FakeClient
     end
   end
 
@@ -111,12 +111,6 @@ describe CallCredit do
       end
     end
 
-  end
-
-  describe "configuration" do
-    it "should have configuration options" do
-      pending
-    end
   end
 
   describe "#search" do
