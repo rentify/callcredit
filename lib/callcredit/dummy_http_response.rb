@@ -20,6 +20,6 @@ class DummyHttpResponse
   end
 
   def dummy_globals
-    { wsdl: File.join(ROOT_PATH, "data/SingleAccessPoint.development.wsdl") }
+    { }
   end
 end

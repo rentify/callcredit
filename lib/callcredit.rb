@@ -3,12 +3,11 @@ require "callcredit/fake_client"
 require "callcredit/search"
 require "callcredit/xml_maker"
 require "callcredit/json_maker"
-require "callcredit/dummy_http_response"
 require "savon"
 
 module CallCredit
 
-  ROOT_PATH   = File.dirname(__FILE__)
+  ROOT_PATH  = File.dirname(__FILE__)
   MAX_ADDRESSES = 10
   MAX_PEOPLE = 2
 

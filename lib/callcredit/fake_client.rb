@@ -1,4 +1,5 @@
 require 'ostruct'
+require "callcredit/dummy_http_response"
 
 module CallCredit
   class FakeClient

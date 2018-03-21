@@ -42,7 +42,7 @@ describe CallCredit::JSONmaker do
           forename: "Mike", surname: "Smith", dob: "13 October 1944",
           dead_or_alive: "not found in the database of death records",
           addresses: ["none found"],
-          electoral_roll: "not on electoral roll at the given address",
+          electoral_roll: "Person known on Electoral Roll",
           ccj: {:active=>"0", :satisfied=>"0"},
           bankruptcy: {:discharged=>"0", :insolvent=>"0", :restricted=>"0"},
           financial_risk: "N/A",

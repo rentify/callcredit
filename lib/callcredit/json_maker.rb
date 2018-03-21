@@ -8,7 +8,7 @@ module CallCredit
       report = doc.remove_namespaces!
 
       creditscore = report.xpath("//creditreport/applicant/creditscores/creditscore/score").text
-      creditscore = creditscore.to_i > 999 ? 0 : creditscore
+      creditscore = creditscore.to_i > 999 ? '0' : creditscore
 
       forename = report.xpath("//creditrequest/applicant/name/forename").text
       surname = report.xpath("//creditrequest/applicant/name/surname").text
@@ -51,7 +51,7 @@ module CallCredit
 
     def self.get_life_status report
       dead = "DEAD, registered as, please verify"
-      alive = "not found in the database of death records"
+      alive = "Not found in the database of death records"
       begin
         status = report.xpath("//creditreport/applicant").attribute('ageflag').value
         status == "3" ? dead : alive
