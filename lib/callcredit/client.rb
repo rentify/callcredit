@@ -11,9 +11,9 @@ module CallCredit
 
     def search(searcher)
       payload = CallCredit::XMLmaker.person(searcher)
-      response = @client.call(:search, xml: payload)
-      puts response.to_xml
-      #[response, CallCredit::JSONmaker.parse(response.to_xml)]
+      #response = @client.call(:search, xml: payload)
+      response = DummyHttpResponse.mock(@client.globals)
+      [response, CallCredit::JSONmaker.parse(response.to_xml)]
     rescue Savon::Error => error
       error_code = error.to_hash[:fault][:code][:value]
       sub_error_code = error.to_hash[:fault][:code][:subcode][:value]

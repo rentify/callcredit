@@ -3,6 +3,7 @@ require "callcredit/fake_client"
 require "callcredit/search"
 require "callcredit/xml_maker"
 require "callcredit/json_maker"
+require "callcredit/dummy_http_response"
 require "savon"
 
 module CallCredit
@@ -27,7 +28,7 @@ module CallCredit
   end
 
   class Configuration
-    attr_accessor :company, :username, :password, :environment, :requests_in_dev, :logger
+    attr_accessor :company, :username, :password, :environment, :requests_in_dev, :logger, :dummy_xml_response_file
   end
 
 end
