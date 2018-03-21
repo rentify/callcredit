@@ -9,7 +9,7 @@ module CallCredit
       @response = nil
       environment = CallCredit.configuration.environment != 'production' ? 'development' : 'production'
       if environment == 'production' || CallCredit.configuration.requests_in_dev
-        @client = CallCredit::Client.new(environment, $logger)
+        @client = CallCredit::Client.new(environment, CallCredit.configuration.logger)
       else
         @client = CallCredit::FakeClient.new
       end

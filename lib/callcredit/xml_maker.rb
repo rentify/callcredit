@@ -7,67 +7,62 @@ module CallCredit
       builder = generate_header(data)
       template = Nokogiri::XML((fix_root_node(builder)), &:noblanks)
 
-      body = '//soapenv:Envelope/soapenv:Body'
-      request = '/soap:Search07a/soap:SearchDefinition/soap:creditrequest'
-      applicant = '/soap:applicant'
+      body = '//soap:Envelope/soap:Body'
+      request = '/ns:Search/ns:request'
+      applicant = '/ns:Individuals'
 
       template.xpath(body).each do |node|
         node.add_child search_node
       end
 
-      template.xpath("#{body}#{request}").each do |node|
-        node.add_child purpose
-      end
-
-      data.addresses.each do |location|
-        template.xpath("#{body}#{request}#{applicant}").each do |node|
-          node.add_child address(location)
-        end
-      end
-
       data.people.each do |person|
         template.xpath("#{body}#{request}#{applicant}").each do |node|
-          node.add_child tenant(person[:forename], person[:surname], person[:dob])
+          node.add_child tenant(person, data.addresses)
         end
       end
 
       template.root.to_xml
     end
 
-
     private
       def self.fix_root_node(builder)
-        builder.doc.root.node_name = "soapenv:Envelope"
+        builder.doc.root.node_name = "soap:Envelope"
         builder.doc.root.to_xml
       end
 
       def self.generate_header(data)
-        ns = { "xmlns:soapenv" => "http://schemas.xmlsoap.org/soap/envelope/",
-          "xmlns:soap" => "urn:callcredit.co.uk/soap:callreport7" }
+        ns = { "xmlns:ns" => "http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0",
+               "xmlns:soap" => "http://www.w3.org/2003/05/soap-envelope",
+             }
 
         doc = Nokogiri::XML::Builder.new do |xml|
           xml.root(ns) do
-            xml["soapenv"].Header do
-              xml["soap"].callcreditheaders do
-                xml["soap"].company  CallCredit.configuration.company
-                xml["soap"].username CallCredit.configuration.username
-                xml["soap"].password CallCredit.configuration.password
+            xml["soap"].Header do
+              xml.Security({ "xmlns" => "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" }) do |xml|
+                xml.UsernameToken do
+                  xml.Username "#{CallCredit.configuration.company}\\#{CallCredit.configuration.username}"
+                  xml.Password CallCredit.configuration.password
+                end
               end
             end
-            xml["soapenv"].Body
+            xml["soap"].Body
           end
         end
       end
 
       def self.search_node
-        ns = {"xmlns:soap" => "definition"}
+        ns = {"xmlns:ns" => "definition"}
 
         search = Nokogiri::XML::Builder.new do |xml|
           xml.root(ns) do
-            xml["soap"].Search07a do
-              xml["soap"].SearchDefinition do
-                xml["soap"].creditrequest({ "schemaversion" => "7.0", "datasets" => "255" }) do
-                  xml["soap"].applicant
+            xml["ns"].Search do
+              xml["ns"].request do
+                xml["ns"].Individuals
+                xml["ns"].ProductsToCall do
+                  xml["ns"].CallReport7({ "DataSets" => "255" }) do
+                    xml["ns"].Score 1
+                    xml["ns"].Purpose 'TV'
+                  end
                 end
               end
             end
@@ -76,57 +71,46 @@ module CallCredit
         search.doc.root.children.to_xml
       end
 
-
-      def self.purpose
-        ns = {"xmlns:soap" => "definition"}
-        purp = Nokogiri::XML::Builder.new do |xml|
-          xml.root(ns) do
-            xml["soap"].score 1
-            xml["soap"].purpose "TV"
-            # Auto searching will automatically search any undeclared addresses up to the number you set in <autosearchmaximum>.
-            # Each extra address searched is charged.  The advantage is that it will find hidden CCJs and BAI’s, but the trade
-            # off is obviously costs. Set autosearch to 1 if you want to use it.
-            xml["soap"].autosearch 0
-            # xml["soap"].autosearchmaximum 3
-          end
+      def self.address(xml, location)
+        xml["ns"].Address do
+          xml["ns"].Line1 location[:abodeno] if location[:abodeno].present?
+          xml["ns"].Line1 location[:number] if location[:number]
+          xml["ns"].Line1 location[:buildingname] if location[:buildingname]
+          xml["ns"].Line10 location[:postcode]
+          xml["ns"].CountryCode "GB"
         end
-        purp.doc.root.children.to_xml
       end
 
-      def self.address(location)
-        ns = {"xmlns:soap" => "definition"}
-        address = Nokogiri::XML::Builder.new do |xml|
-          xml.root(ns) do
-            xml["soap"].address do
-              xml["soap"].abodeno location[:abodeno] if location[:abodeno].present?
-              xml["soap"].buildingno location[:number] if location[:number]
-              xml["soap"].buildingname location[:buildingname] if location[:buildingname]
-              xml["soap"].postcode location[:postcode]
-            end
-          end
-        end
-        address.doc.root.children.to_xml
-      end
-
-
-      def self.tenant(forename, surname, dob)
-        ns = {"xmlns:soap" => "definition"}
+      def self.tenant(person, addresses)
+        ns = {"xmlns:ns" => "definition"}
         tenant = Nokogiri::XML::Builder.new do |xml|
           xml.root(ns) do
-            xml["soap"].name do
-              xml["soap"].forename forename
-              xml["soap"].surname surname
-            end
-            xml["soap"].dob dob
-            xml["soap"].hho 0
-            xml["soap"].tpoptout 1
-            xml["soap"].applicantdemographics do
-              xml["soap"].employment
+            xml["ns"].Individual do
+              xml["ns"].DateOfBirth person[:dob]
+              xml["ns"].Names do
+                xml["ns"].Name do
+                  xml["ns"].Title "Mr" #person[:title]
+                  xml["ns"].GivenName person[:forename]
+                  xml["ns"].FamilyName1 person[:surname]
+                end
+              end
+              xml["ns"].Addresses do
+                addresses_block(xml, addresses)
+              end
+              xml["ns"].ApplicationSettings do |xml|
+                xml["ns"].HouseholdSearchEnabled 'false'
+                xml["ns"].ThirdPartyOptOut 'true'
+              end
             end
           end
         end
         tenant.doc.root.children.to_xml
       end
 
+      def self.addresses_block(xml, addresses)
+        addresses.each do |location|
+          address(xml, location)
+        end
+      end
   end
 end
