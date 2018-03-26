@@ -89,7 +89,7 @@ module CallCredit
               xml["ns"].DateOfBirth person[:dob]
               xml["ns"].Names do
                 xml["ns"].Name do
-                  xml["ns"].Title "Mr" #person[:title]
+                  xml["ns"].Title person[:title]
                   xml["ns"].GivenName person[:forename]
                   xml["ns"].FamilyName1 person[:surname]
                 end

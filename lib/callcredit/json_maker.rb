@@ -10,10 +10,9 @@ module CallCredit
       creditscore = report.xpath("//creditreport/applicant/creditscores/creditscore/score").text
       creditscore = creditscore.to_i > 999 ? '0' : creditscore
 
-      forename = report.xpath("//creditrequest/applicant/name/forename").text
-      surname = report.xpath("//creditrequest/applicant/name/surname").text
-      date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
-      dob = date.strftime("%d %B %Y")
+      forename = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/forename").text
+      surname = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/surname").text
+      dob = get_dob(report)
 
       dead_or_alive = get_life_status(report)
 
@@ -67,13 +66,13 @@ module CallCredit
       end
 
       addresses << "none found" if addresses.empty?
-      addresses
+      addresses.uniq
     end
 
     def self.get_electoral_roll report
-      roll = report.xpath("//addressconf[address/@current='1']/resident[@matchtype='IM' and (@currentname='1' or @declaredalias='1')]/ervalid").text || "2"
+      roll = report.xpath("//addressconf[address/@current='1']/resident[@matchtype='IM' and (@currentname='1' or @declaredalias='1')]/ervalid").first&.text || '2'
       # code translations from CallReport 7.2 - API Reference Guide - v1.8
-      # page 323 - 23.26 ER Status Code (Appendix)
+
       code_map = {
         "1" => "Person known on Electoral Roll",
         "2" => "Person not known on Electoral Roll",
@@ -103,6 +102,13 @@ module CallCredit
         restricted = bnkrpt.xpath("//restricted").text
         { discharged: discharged, insolvent: insolvent, restricted: restricted }
       end
+    end
+
+    def self.get_dob(report)
+      dob_text = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/dob").text
+      return unless dob_text.present?
+      date = Date.strptime(dob_text, "%Y-%m-%d")
+      date.strftime("%d %B %Y")
     end
 
     def self.get_financial_risk key

@@ -3,17 +3,20 @@ require 'spec_helper'
 describe CallCredit do
 
   let(:cc) { CallCredit::Search.new }
+  let(:requests_in_dev) { false }
 
   before do
-    CallCredit.configure do |config|
-      config.company = 'company'
-      config.username = 'username'
-      config.password = 'password'
-    end
+    logger = double('logger')
+    allow(logger).to receive(:info)
+    allow(logger).to receive(:debug)
 
-    $logger = double('logger')
-    allow($logger).to receive(:info)
-    allow($logger).to receive(:debug)
+    CallCredit.configure do |config|
+      config.company = 'qpmgtdfmauxfwzdofngq'
+      config.username = 'upbnirywoibmzzfjrkpvdurh'
+      config.password = '12345678'
+      config.logger = logger
+      config.requests_in_dev = requests_in_dev
+    end
   end
 
   describe "#client" do
@@ -114,7 +117,8 @@ describe CallCredit do
   end
 
   describe "#search" do
-    %w(development production).each do |env|
+    let(:requests_in_dev) { true }
+    %w(development).each do |env|
       context env do
         before do
           ENV['RAILS_ENV'] = env
@@ -126,8 +130,8 @@ describe CallCredit do
 
         context "when a query is submitted" do
           let!(:cc) { CallCredit::Search.new }
-          let!(:person) { cc.add_person(forename: "Julia", surname: "Audi", dob: "1943-03-06") }
-          let!(:address) { cc.add_address(number: 7, postcode: "W1") }
+          let!(:person) { cc.add_person(title: "Miss", forename: "Julia", surname: "Audi", dob: "1943-03-06") }
+          let!(:address) { cc.add_address(number: 7, postcode: "X9 9AA") }
 
           subject { cc.search }
 

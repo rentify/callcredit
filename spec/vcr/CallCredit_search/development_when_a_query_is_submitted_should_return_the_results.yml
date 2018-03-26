@@ -1,0 +1,105 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://ct.callcreditsecure.co.uk/SingleAccessPoint/Api/v1.0
+    body:
+      encoding: UTF-8
+      string: |-
+        <soap:Envelope xmlns:ns="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0" xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+          <soap:Header>
+            <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+              <UsernameToken>
+                <Username>qpmgtdfmauxfwzdofngq\upbnirywoibmzzfjrkpvdurh</Username>
+                <Password>12345678</Password>
+              </UsernameToken>
+            </Security>
+          </soap:Header>
+          <soap:Body>
+            <ns:Search>
+          <ns:request>
+            <ns:Individuals><ns:Individual>
+          <ns:DateOfBirth>1943-03-06</ns:DateOfBirth>
+          <ns:Names>
+            <ns:Name>
+              <ns:Title>Miss</ns:Title>
+              <ns:GivenName>Julia</ns:GivenName>
+              <ns:FamilyName1>Audi</ns:FamilyName1>
+            </ns:Name>
+          </ns:Names>
+          <ns:Addresses>
+            <ns:Address>
+              <ns:Line1>7</ns:Line1>
+              <ns:Line10>X9 9AA</ns:Line10>
+              <ns:CountryCode>GB</ns:CountryCode>
+            </ns:Address>
+          </ns:Addresses>
+          <ns:ApplicationSettings>
+            <ns:HouseholdSearchEnabled>false</ns:HouseholdSearchEnabled>
+            <ns:ThirdPartyOptOut>true</ns:ThirdPartyOptOut>
+          </ns:ApplicationSettings>
+        </ns:Individual></ns:Individuals>
+            <ns:ProductsToCall>
+              <ns:CallReport7 DataSets="255">
+                <ns:Score>1</ns:Score>
+                <ns:Purpose>TV</ns:Purpose>
+              </ns:CallReport7>
+            </ns:ProductsToCall>
+          </ns:request>
+        </ns:Search>
+          </soap:Body>
+        </soap:Envelope>
+    headers:
+      Content-Type:
+      - application/soap+xml;charset=UTF-8;action="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0/ISingleAccessPointService/Search"
+      Soapaction:
+      - '"http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0/ISingleAccessPointService/Search"'
+      Content-Length:
+      - '1396'
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/soap+xml; charset=utf-8
+      Date:
+      - Mon, 26 Mar 2018 08:56:37 GMT
+      Connection:
+      - close
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: <s:Envelope xmlns:s="http://www.w3.org/2003/05/soap-envelope" xmlns:u="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><s:Header><o:Security
+        s:mustUnderstand="1" xmlns:o="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"><u:Timestamp
+        u:Id="_0"><u:Created>2018-03-26T08:56:37.278Z</u:Created><u:Expires>2018-03-26T09:01:37.278Z</u:Expires></u:Timestamp></o:Security></s:Header><s:Body
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><SearchResponse
+        xmlns="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0"><SearchResult><SystemData><RequestReferenceId>6eae40ec-cb04-46e1-ad47-1d6ccf5c23e1</RequestReferenceId><TimeStamp>2018-03-26T08:56:37.2706749Z</TimeStamp><TraceId>008-012</TraceId></SystemData><Error><Success>true</Success></Error><ProductResponses><CallReport7><CallReport7Response><Response><jobdetails
+        xmlns="urn:callcredit.co.uk/soap:callreport7"><searchid>{12EE5FD0-C15A-46EB-8229-3AA058191642}</searchid><cast>006.005.7.2.1.2.0.41158402.0</cast><pstv>41158402</pstv><ls>0</ls><searchdate>2018-03-26T09:56:32</searchdate></jobdetails><yourreference
+        xmlns="urn:callcredit.co.uk/soap:callreport7"/><creditrequest schemaversion="7.1"
+        datasets="255" xmlns="urn:callcredit.co.uk/soap:callreport7"><applicant><address><abodeno>7</abodeno><postcode>X9
+        9AA</postcode></address><name><title>Miss</title><forename>Julia</forename><surname>Audi</surname></name><dob>1943-03-06</dob><hho>0</hho><tpoptout>1</tpoptout></applicant><score>1</score><purpose>TV</purpose></creditrequest><picklist
+        maxaddressitems="20" maxnameitems="9" picklist="1" regenerated="0" xmlns="urn:callcredit.co.uk/soap:callreport7"><applicant
+        id="1" reporttype="1"><address addressid="1"><addressinput><abodeno>7</abodeno><postcode>X9
+        9AA</postcode></addressinput><fullmatches reporttype="1" matchstatus="2"><fullmatch
+        selected="1"><addressmatch><abodeno/><buildingno>7</buildingno><buildingname/><street1>CHUCKLE
+        BROS AVENUE</street1><street2/><sublocality/><locality/><posttown/><postcode>X9
+        9AA</postcode><domicileid>40801722</domicileid></addressmatch><name nameid="1"><nameinput><title>Miss</title><forename>Julia</forename><surname>Audi</surname></nameinput><namematches
+        reporttype="1" matchstatus="2"/></name></fullmatch></fullmatches></address></applicant></picklist><creditreport
+        searchid="{12EE5FD0-C15A-46EB-8229-3AA058191642}" linktype="0" xmlns="urn:callcredit.co.uk/soap:callreport7"><applicant
+        reporttype="1" tpoptout="1" ageflag="0" reporttitle="Not matched for Audi"><summary><searches><totalsearches3months>0</totalsearches3months><totalsearches12months>0</totalsearches12months><totalhomecreditsearches3months>0</totalhomecreditsearches3months></searches><judgments><totalactive>0</totalactive><totalsatisfied>0</totalsatisfied></judgments><bais><totaldischarged>0</totaldischarged><currentlyinsolvent>0</currentlyinsolvent><restricted>0</restricted></bais><notices><nocflag>0</nocflag><totaldisputes>0</totaldisputes></notices><links><totalundecaddressessearched>0</totalundecaddressessearched><totalundecaddressesunsearched>0</totalundecaddressesunsearched><totalundecaliases>0</totalundecaliases></links><summaryaddress><pafvalid>1</pafvalid><messagecode>13</messagecode></summaryaddress><address
+        current="1" messagecode="8" id="1">7 CHUCKLE BROS AVENUE, X9 9AA</address></summary><creditscores><creditscore><score
+        class="10">604</score><reasons><code>402</code><code>302</code><code>0</code><code>0</code></reasons></creditscore></creditscores><addressconfs><addressconf
+        pafvalid="1"><address current="1">7 CHUCKLE BROS AVENUE, X9 9AA</address></addressconf></addressconfs><demographics2006><cameouk>04E</cameouk><cameoincome>33</cameoincome><cameoinvestor>33</cameoinvestor><cameoproperty>08</cameoproperty><cameofing>3</cameofing><property><ctaxband>G</ctaxband><priceindex>8065</priceindex></property></demographics2006></applicant></creditreport></Response><Error><Success>true</Success></Error><ResponseIndividuals><ResponseIndividual><Id>1</Id></ResponseIndividual></ResponseIndividuals></CallReport7Response></CallReport7></ProductResponses></SearchResult></SearchResponse></s:Body></s:Envelope>
+    http_version:
+  recorded_at: Mon, 26 Mar 2018 08:56:38 GMT
+recorded_with: VCR 2.5.0
