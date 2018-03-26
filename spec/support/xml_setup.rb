@@ -1,118 +1,145 @@
 
 def xml_result
-  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="urn:callcredit.co.uk/soap:callreport7">
-    <soapenv:Header>
-      <soap:callcreditheaders>
-        <soap:company>Rentify CR CTEST</soap:company>
-        <soap:username>Rentify API CR CTEST</soap:username>
-        <soap:password>lequ1li8di</soap:password>
-      </soap:callcreditheaders>
-    </soapenv:Header>
-    <soapenv:Body>
-      <soap:Search07a>
-        <soap:SearchDefinition>
-          <soap:creditrequest schemaversion="7.0" datasets="255">
-            <soap:applicant>
-              <soap:address>
-                <soap:buildingno>10</soap:buildingno>
-                <soap:postcode>X9 9LF</soap:postcode>
-              </soap:address>
-              <soap:name>
-                <soap:forename>Julia</soap:forename>
-                <soap:surname>Audi</soap:surname>
-              </soap:name>
-              <soap:dob>1910-01-01</soap:dob>
-              <soap:hho>0</soap:hho>
-              <soap:tpoptout>1</soap:tpoptout>
-              <soap:applicantdemographics>
-                <soap:employment/>
-              </soap:applicantdemographics>
-            </soap:applicant>
-            <soap:score>1</soap:score>
-            <soap:purpose>TV</soap:purpose>
-            <soap:autosearch>0</soap:autosearch>
-          </soap:creditrequest>
-        </soap:SearchDefinition>
-      </soap:Search07a>
-    </soapenv:Body>
-  </soapenv:Envelope>'
+  <<-XML
+    <soap:Envelope xmlns:ns="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0" xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+      <soap:Header>
+        <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+          <UsernameToken>
+            <Username>Rentify CR CTEST\\Rentify API CR CTEST</Username>
+            <Password>lequ1li8di</Password>
+          </UsernameToken>
+        </Security>
+      </soap:Header>
+      <soap:Body>
+        <ns:Search>
+      <ns:request>
+        <ns:Individuals><ns:Individual>
+      <ns:DateOfBirth>1910-01-01</ns:DateOfBirth>
+      <ns:Names>
+        <ns:Name>
+          <ns:Title/>
+          <ns:GivenName>Julia</ns:GivenName>
+          <ns:FamilyName1>Audi</ns:FamilyName1>
+        </ns:Name>
+      </ns:Names>
+      <ns:Addresses>
+        <ns:Address>
+          <ns:Line1>10</ns:Line1>
+          <ns:Line10>X9 9LF</ns:Line10>
+          <ns:CountryCode>GB</ns:CountryCode>
+        </ns:Address>
+      </ns:Addresses>
+      <ns:ApplicationSettings>
+        <ns:HouseholdSearchEnabled>false</ns:HouseholdSearchEnabled>
+        <ns:ThirdPartyOptOut>true</ns:ThirdPartyOptOut>
+      </ns:ApplicationSettings>
+    </ns:Individual></ns:Individuals>
+        <ns:ProductsToCall>
+          <ns:CallReport7 DataSets="255">
+            <ns:Score>1</ns:Score>
+            <ns:Purpose>TV</ns:Purpose>
+          </ns:CallReport7>
+        </ns:ProductsToCall>
+      </ns:request>
+    </ns:Search>
+      </soap:Body>
+    </soap:Envelope>
+  XML
 end
 
 def xml_result_with_building_name
-  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="urn:callcredit.co.uk/soap:callreport7">
-    <soapenv:Header>
-      <soap:callcreditheaders>
-        <soap:company>Rentify CR CTEST</soap:company>
-        <soap:username>Rentify API CR CTEST</soap:username>
-        <soap:password>lequ1li8di</soap:password>
-      </soap:callcreditheaders>
-    </soapenv:Header>
-    <soapenv:Body>
-      <soap:Search07a>
-        <soap:SearchDefinition>
-          <soap:creditrequest schemaversion="7.0" datasets="255">
-            <soap:applicant>
-              <soap:address>
-                <soap:buildingname>RentifyHq</soap:buildingname>
-                <soap:postcode>X9 9LF</soap:postcode>
-              </soap:address>
-              <soap:name>
-                <soap:forename>Julia</soap:forename>
-                <soap:surname>Audi</soap:surname>
-              </soap:name>
-              <soap:dob>1910-01-01</soap:dob>
-              <soap:hho>0</soap:hho>
-              <soap:tpoptout>1</soap:tpoptout>
-              <soap:applicantdemographics>
-                <soap:employment/>
-              </soap:applicantdemographics>
-            </soap:applicant>
-            <soap:score>1</soap:score>
-            <soap:purpose>TV</soap:purpose>
-            <soap:autosearch>0</soap:autosearch>
-          </soap:creditrequest>
-        </soap:SearchDefinition>
-      </soap:Search07a>
-    </soapenv:Body>
-  </soapenv:Envelope>'
+  <<-XML
+    <soap:Envelope xmlns:ns="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0" xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+      <soap:Header>
+        <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+          <UsernameToken>
+            <Username>Rentify CR CTEST\\Rentify API CR CTEST</Username>
+            <Password>lequ1li8di</Password>
+          </UsernameToken>
+        </Security>
+      </soap:Header>
+      <soap:Body>
+        <ns:Search>
+      <ns:request>
+        <ns:Individuals><ns:Individual>
+      <ns:DateOfBirth>1910-01-01</ns:DateOfBirth>
+      <ns:Names>
+        <ns:Name>
+          <ns:Title/>
+          <ns:GivenName>Julia</ns:GivenName>
+          <ns:FamilyName1>Audi</ns:FamilyName1>
+        </ns:Name>
+      </ns:Names>
+      <ns:Addresses>
+        <ns:Address>
+          <ns:Line1>RentifyHq</ns:Line1>
+          <ns:Line10>X9 9LF</ns:Line10>
+          <ns:CountryCode>GB</ns:CountryCode>
+        </ns:Address>
+      </ns:Addresses>
+      <ns:ApplicationSettings>
+        <ns:HouseholdSearchEnabled>false</ns:HouseholdSearchEnabled>
+        <ns:ThirdPartyOptOut>true</ns:ThirdPartyOptOut>
+      </ns:ApplicationSettings>
+    </ns:Individual></ns:Individuals>
+        <ns:ProductsToCall>
+          <ns:CallReport7 DataSets="255">
+            <ns:Score>1</ns:Score>
+            <ns:Purpose>TV</ns:Purpose>
+          </ns:CallReport7>
+        </ns:ProductsToCall>
+      </ns:request>
+    </ns:Search>
+      </soap:Body>
+    </soap:Envelope>
+  XML
 end
 
 def xml_result_with_abodeno
-  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="urn:callcredit.co.uk/soap:callreport7">
-    <soapenv:Header>
-      <soap:callcreditheaders>
-        <soap:company>Rentify CR CTEST</soap:company>
-        <soap:username>Rentify API CR CTEST</soap:username>
-        <soap:password>lequ1li8di</soap:password>
-      </soap:callcreditheaders>
-    </soapenv:Header>
-    <soapenv:Body>
-      <soap:Search07a>
-        <soap:SearchDefinition>
-          <soap:creditrequest schemaversion="7.0" datasets="255">
-            <soap:applicant>
-              <soap:address>
-                <soap:abodeno>abodeno</soap:abodeno>
-                <soap:buildingname>RentifyHq</soap:buildingname>
-                <soap:postcode>X9 9LF</soap:postcode>
-              </soap:address>
-              <soap:name>
-                <soap:forename>Julia</soap:forename>
-                <soap:surname>Audi</soap:surname>
-              </soap:name>
-              <soap:dob>1910-01-01</soap:dob>
-              <soap:hho>0</soap:hho>
-              <soap:tpoptout>1</soap:tpoptout>
-              <soap:applicantdemographics>
-                <soap:employment/>
-              </soap:applicantdemographics>
-            </soap:applicant>
-            <soap:score>1</soap:score>
-            <soap:purpose>TV</soap:purpose>
-            <soap:autosearch>0</soap:autosearch>
-          </soap:creditrequest>
-        </soap:SearchDefinition>
-      </soap:Search07a>
-    </soapenv:Body>
-  </soapenv:Envelope>'
+  <<-XML
+    <soap:Envelope xmlns:ns="http://www.callcredit.co.uk/SingleAccessPointService/ISingleAccessPointService/1.0" xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+      <soap:Header>
+        <Security xmlns="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+          <UsernameToken>
+            <Username>Rentify CR CTEST\\Rentify API CR CTEST</Username>
+            <Password>lequ1li8di</Password>
+          </UsernameToken>
+        </Security>
+      </soap:Header>
+      <soap:Body>
+        <ns:Search>
+      <ns:request>
+        <ns:Individuals><ns:Individual>
+      <ns:DateOfBirth>1910-01-01</ns:DateOfBirth>
+      <ns:Names>
+        <ns:Name>
+          <ns:Title/>
+          <ns:GivenName>Julia</ns:GivenName>
+          <ns:FamilyName1>Audi</ns:FamilyName1>
+        </ns:Name>
+      </ns:Names>
+      <ns:Addresses>
+        <ns:Address>
+          <ns:Line1>1234</ns:Line1>
+          <ns:Line1>RentifyHq</ns:Line1>
+          <ns:Line10>X9 9LF</ns:Line10>
+          <ns:CountryCode>GB</ns:CountryCode>
+        </ns:Address>
+      </ns:Addresses>
+      <ns:ApplicationSettings>
+        <ns:HouseholdSearchEnabled>false</ns:HouseholdSearchEnabled>
+        <ns:ThirdPartyOptOut>true</ns:ThirdPartyOptOut>
+      </ns:ApplicationSettings>
+    </ns:Individual></ns:Individuals>
+        <ns:ProductsToCall>
+          <ns:CallReport7 DataSets="255">
+            <ns:Score>1</ns:Score>
+            <ns:Purpose>TV</ns:Purpose>
+          </ns:CallReport7>
+        </ns:ProductsToCall>
+      </ns:request>
+    </ns:Search>
+      </soap:Body>
+    </soap:Envelope>
+  XML
 end

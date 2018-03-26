@@ -7,7 +7,7 @@ require "savon"
 
 module CallCredit
 
-  ROOT_PATH   = File.dirname(__FILE__)
+  ROOT_PATH  = File.dirname(__FILE__)
   MAX_ADDRESSES = 10
   MAX_PEOPLE = 2
 
@@ -27,7 +27,7 @@ module CallCredit
   end
 
   class Configuration
-    attr_accessor :company, :username, :password, :environment, :requests_in_dev
+    attr_accessor :company, :username, :password, :environment, :requests_in_dev, :logger, :dummy_xml_response_file
   end
 
 end

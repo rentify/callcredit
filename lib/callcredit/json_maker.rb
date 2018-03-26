@@ -7,13 +7,12 @@ module CallCredit
       doc = Nokogiri::XML(xml)
       report = doc.remove_namespaces!
 
-      creditscore = report.xpath("//creditreport/applicant/creditscore/score").text
-      creditscore = creditscore.to_i > 999 ? 0 : creditscore
+      creditscore = report.xpath("//creditreport/applicant/creditscores/creditscore/score").text
+      creditscore = creditscore.to_i > 999 ? '0' : creditscore
 
-      forename = report.xpath("//creditrequest/applicant/name/forename").text
-      surname = report.xpath("//creditrequest/applicant/name/surname").text
-      date = Date.strptime(report.xpath("//creditrequest/applicant/dob").text, "%Y-%m-%d")
-      dob = date.strftime("%d %B %Y")
+      forename = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/forename").text
+      surname = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/surname").text
+      dob = get_dob(report)
 
       dead_or_alive = get_life_status(report)
 
@@ -25,7 +24,7 @@ module CallCredit
 
       bankruptcy = get_bankruptcy(report)
 
-      demographic = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/demographics2006")
+      demographic = report.xpath("//creditreport/applicant/demographics2006")
 
       financial_risk = get_financial_risk demographic.xpath("//cameofing").text
       income_type = get_income_type demographic.xpath("//cameoincome").text
@@ -51,9 +50,9 @@ module CallCredit
 
     def self.get_life_status report
       dead = "DEAD, registered as, please verify"
-      alive = "not found in the database of death records"
+      alive = "Not found in the database of death records"
       begin
-        status = report.xpath("//SearchResult/creditreport/applicant").attribute('ageflag').value
+        status = report.xpath("//creditreport/applicant").attribute('ageflag').value
         status == "3" ? dead : alive
       rescue NoMethodError
         alive
@@ -61,29 +60,31 @@ module CallCredit
     end
 
     def self.get_address report
-      if report.xpath("//Search07aResponse/SearchResult/picklist/applicant/address/fullmatches[@reporttype='0']") == []
-        ["none found"]
-      else
-        addresses = []
-        report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/address").each do |ad|
-          addresses << ad.text
-        end
-
-        addresses << "none found" if addresses.empty?
-
-        addresses
+      addresses = []
+      report.xpath("//creditreport/applicant/summary/address").each do |ad|
+        addresses << ad.text
       end
+
+      addresses << "none found" if addresses.empty?
+      addresses.uniq
     end
 
     def self.get_electoral_roll report
-       roll = report.xpath("//addressconf[address/@current='1']/resident[@matchtype='IM' and (@currentname='1' or @declaredalias='1')]/ervalid").text
-      found = "on electoral roll at the given address"
-      not_found = "not on electoral roll at the given address"
-      roll == "1" ? found : not_found
+      roll = report.xpath("//addressconf[address/@current='1']/resident[@matchtype='IM' and (@currentname='1' or @declaredalias='1')]/ervalid").first&.text || '2'
+      # code translations from CallReport 7.2 - API Reference Guide - v1.8
+
+      code_map = {
+        "1" => "Person known on Electoral Roll",
+        "2" => "Person not known on Electoral Roll",
+        "3" => "Person formally known on Electoral Roll",
+        "4" => "Person known on rolling Electoral Roll",
+        "5" => "Person formally known on rolling Electoral Roll",
+      }
+      code_map[roll]
     end
 
     def self.get_ccj report
-      judgments = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/judgments")
+      judgments = report.xpath("//creditreport/applicant/summary/judgments")
       if judgments.empty?
         { active: '0', satisfied: '0' }
       else
@@ -92,7 +93,7 @@ module CallCredit
     end
 
     def self.get_bankruptcy report
-      bnkrpt = report.xpath("//Search07aResponse/SearchResult/creditreport/applicant/summary/bais")
+      bnkrpt = report.xpath("//creditreport/applicant/summary/bais")
       if bnkrpt.empty?
         { discharged: '0', insolvent: '0', restricted: '0' }
       else
@@ -101,6 +102,13 @@ module CallCredit
         restricted = bnkrpt.xpath("//restricted").text
         { discharged: discharged, insolvent: insolvent, restricted: restricted }
       end
+    end
+
+    def self.get_dob(report)
+      dob_text = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/dob").text
+      return unless dob_text.present?
+      date = Date.strptime(dob_text, "%Y-%m-%d")
+      date.strftime("%d %B %Y")
     end
 
     def self.get_financial_risk key

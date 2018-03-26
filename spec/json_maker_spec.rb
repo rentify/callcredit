@@ -12,18 +12,18 @@ describe CallCredit::JSONmaker do
         let(:json) { CallCredit::JSONmaker.parse(xml) }
         let(:expected) do
           {
-            creditscore: "513",
-            forename: "Bob", surname: "Smith", dob: "09 June 1966",
-            dead_or_alive: "not found in the database of death records",
-            addresses: ["11 THE PARK, TREHARRIS CF46 5RH", "11 MANOR COURT, EDWARDSVILLE, TREHARRIS CF46 5NZ", "10 ALEXANDRA ROAD, TREFOREST, PONTYPRIDD CF37 1BN", "8 SARON STREET, PONTYPRIDD CF37 1TF", "37 OXFORD STREET, PONTYPRIDD CF37 1RU"],
-            electoral_roll: "on electoral roll at the given address",
-            ccj: {:active=>"0", :satisfied=>"0"},
+            creditscore: "605",
+            forename: "GLENDA", surname: "BURMESE", dob: "15 June 1962",
+            dead_or_alive: "Not found in the database of death records",
+            addresses: ["608 ALLEY CAT LANE, TEST TOWN X9 9AA", "606 ALLEY CAT LANE, TEST TOWN X9 9AA"],
+            electoral_roll: "Person known on Electoral Roll",
+            ccj: {:active=>"0", :satisfied=>"1"},
             bankruptcy: {:discharged=>"0", :insolvent=>"1", :restricted=>"0"},
-            financial_risk: "Highest Risk",
-            income_type: "Poorer Terraced Communities",
-            investor_category: "Terrace Residents",
-            property_value: "between £103,569 and £113,489",
-            area_makeup: "Mixed Households In Mostly Welsh Suburban Communities & Rural Areas"
+            financial_risk: "Low Risk",
+            income_type: "Accomplished Retirees",
+            investor_category: "Mature Educated Couples",
+            property_value: "between £278,665 and £315,380",
+            area_makeup: "Couples & Families In Modern Rural & Suburban Developments"
           }
         end
 
@@ -38,22 +38,22 @@ describe CallCredit::JSONmaker do
       let(:json) { CallCredit::JSONmaker.parse(xml) }
       let(:expected) do
         {
-          creditscore: "0",
-          forename: "Mike", surname: "Smith", dob: "13 October 1944",
-          dead_or_alive: "not found in the database of death records",
-          addresses: ["none found"],
-          electoral_roll: "not on electoral roll at the given address",
+          creditscore: "604",
+          forename: "", surname: "", dob: nil,
+          dead_or_alive: "Not found in the database of death records",
+          addresses: ["606 ALLEY CAT LANE, TEST TOWN X9 9AA"],
+          electoral_roll: "Person not known on Electoral Roll",
           ccj: {:active=>"0", :satisfied=>"0"},
           bankruptcy: {:discharged=>"0", :insolvent=>"0", :restricted=>"0"},
-          financial_risk: "N/A",
-          income_type: "N/A",
-          investor_category: "N/A",
-          property_value: "N/A",
-          area_makeup: "N/A"
+          financial_risk: "Low Risk",
+          income_type: "Accomplished Retirees",
+          investor_category: "Mature Educated Couples",
+          property_value: "between £278,665 and £315,380",
+          area_makeup: "Couples & Families In Modern Rural & Suburban Developments"
         }
       end
 
-      it "should turn them into sensible JSON" do
+      it "should turn them into sensible JSON for address only match" do
         json.should eq expected
       end
     end
@@ -63,13 +63,13 @@ describe CallCredit::JSONmaker do
       let(:json) { CallCredit::JSONmaker.parse(xml) }
       let(:expected) do
         {
-          creditscore: "506",
-          forename: "Elizabeth", surname: "Tabby", dob: "02 January 1986",
-          dead_or_alive: "not found in the database of death records",
+          creditscore: "604",
+          forename: "FRED", surname: "MANX", dob: "10 October 1930",
+          dead_or_alive: "Not found in the database of death records",
           addresses: ["606 ALLEY CAT LANE, TEST TOWN X9 9AA"],
-          electoral_roll: "on electoral roll at the given address",
-          ccj: {:active=>"1", :satisfied=>"0"},
-          bankruptcy: {:discharged=>"0", :insolvent=>"0", :restricted=>"0"},
+          electoral_roll: "Person formally known on Electoral Roll",
+          ccj: {:active=>"0", :satisfied=>"1"},
+          bankruptcy: {:discharged=>"0", :insolvent=>"1", :restricted=>"0"},
           financial_risk: "Low Risk",
           income_type: "Accomplished Retirees",
           investor_category: "Mature Educated Couples",

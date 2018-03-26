@@ -1,8 +1,18 @@
 require 'ostruct'
+require "callcredit/dummy_http_response"
 
 module CallCredit
   class FakeClient
     def search(searcher)
+      if CallCredit.configuration.dummy_xml_response_file
+        response = DummyHttpResponse.mock
+        [response, CallCredit::JSONmaker.parse(response.to_xml)]
+      else
+        dummy_json(searcher)
+      end
+    end
+
+    def dummy_json(searcher)
       person = searcher.people.first
       addresses = searcher.addresses
       score = addresses.first[:number]
