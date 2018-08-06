@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "savon", "~> 2.12"
-  spec.add_dependency "nokogiri", "1.8.2"
+  spec.add_dependency "nokogiri", "1.8.4"
   spec.add_dependency "i18n"
 
   spec.add_development_dependency "bundler"
