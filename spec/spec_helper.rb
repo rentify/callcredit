@@ -1,5 +1,6 @@
 require 'rspec'
-require 'active_support/core_ext'
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/hash'
 require_relative File.join '..', 'lib', 'callcredit'
 
 Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
