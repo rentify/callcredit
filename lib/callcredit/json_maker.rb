@@ -7,12 +7,16 @@ module CallCredit
       doc = Nokogiri::XML(xml)
       report = doc.remove_namespaces!
 
-      creditscore = report.xpath("//creditreport/applicant/creditscores/creditscore/score").text
-      creditscore = creditscore.to_i > 999 ? '0' : creditscore
-
       forename = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/forename").text
       surname = report.xpath("//fullmatches/fullmatch/name/namematches/namematch/surname").text
       dob = get_dob(report)
+
+      if forename.present?
+        creditscore = report.xpath("//creditreport/applicant/creditscores/creditscore/score").text
+        creditscore = creditscore.to_i > 999 ? '0' : creditscore
+      else
+        creditscore = '0'
+      end
 
       dead_or_alive = get_life_status(report)
 

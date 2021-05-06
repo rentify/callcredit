@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    callcredit (0.9.6)
+    callcredit (1.0.0)
       i18n
       nokogiri (~> 1.10)
       savon (~> 2.12)
